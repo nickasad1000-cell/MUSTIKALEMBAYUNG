@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "tipe-36",
+    "name": "Tipe 36",
+    "landArea": 72,
+    "buildingArea": 36,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "floors": 1,
+    "price": 385000000,
+    "status": "available",
+    "carport": 1,
+    "features": [
+      "Carport 1 mobil",
+      "Taman depan",
+      "Listrik 1300 VA",
+      "Akses jalan 6 meter"
+    ]
+  },
+  {
+    "slug": "tipe-45",
+    "name": "Tipe 45",
+    "landArea": 84,
+    "buildingArea": 45,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "floors": 1,
+    "price": 525000000,
+    "status": "available",
+    "carport": 1,
+    "features": [
+      "Carport 1 mobil",
+      "Dapur bersih & kotor",
+      "Listrik 2200 VA",
+      "Akses jalan 6 meter"
+    ]
+  },
+  {
+    "slug": "tipe-60",
+    "name": "Tipe 60",
+    "landArea": 120,
+    "buildingArea": 60,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "floors": 2,
+    "price": 785000000,
+    "status": "coming-soon",
+    "carport": 2,
+    "features": [
+      "Carport 2 mobil",
+      "Rooftop garden",
+      "Smart home ready",
+      "Listrik 3500 VA"
+    ]
+  }
+]
