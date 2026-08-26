@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   getAllUnits,
   getUnitBySlug,
-  priceLabel,
+  formatPrice,
   STATUS_LABELS,
 } from "@/lib/units";
-import { site, waLink } from "@/lib/site";
+import { pricingStats, site, waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { UnitGallery } from "@/components/site/unit-gallery";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -45,85 +45,67 @@ export default async function UnitDetailPage({ params }: PageProps) {
     { label: "Kapasitas Carport", value: `${unit.carport} mobil` },
   ];
 
+  const galleryImages = [
+    ...(unit.image
+      ? [{ src: unit.image, caption: `Foto ${unit.name}` }]
+      : []),
+    ...(unit.denah
+      ? [{ src: unit.denah, caption: `Denah ${unit.name}`, png: true }]
+      : []),
+  ];
+
   return (
     <div className="flex flex-col flex-1 bg-white font-sans">
       <Header />
 
       <main className="flex-1">
-        <div className="mx-auto w-full max-w-6xl px-6 py-12">
+        <div className="mx-auto w-full max-w-6xl px-6 pb-24 pt-32">
           {/* Breadcrumb */}
           <nav className="text-sm text-zinc-500" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-emerald-800">
+            <Link href="/" className="transition-colors duration-300 hover:text-navy-800">
               Beranda
             </Link>
             <span aria-hidden> / </span>
-            <Link href="/#katalog" className="hover:text-emerald-800">
+            <Link
+              href="/"
+              className="transition-colors duration-300 hover:text-navy-800"
+            >
               Katalog Unit
             </Link>
             <span aria-hidden> / </span>
-            <span className="font-medium text-zinc-800">{unit.name}</span>
+            <span className="font-medium text-navy-950">{unit.name}</span>
           </nav>
 
           <div className="mt-8 grid gap-12 lg:grid-cols-2">
             {/* Visual */}
-            <div className="flex flex-col gap-4">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-100 to-violet-100">
-                {unit.image ? (
-                  <Image
-                    src={unit.image}
-                    alt={`Foto ${unit.name}`}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover"
-                    priority
-                  />
-                ) : (
-                  <span className="flex h-full items-center justify-center text-sm text-emerald-900/50">
-                    Foto {unit.name} — segera
-                  </span>
-                )}
-              </div>
-              {unit.denah && (
-                <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white">
-                  <Image
-                    src={unit.denah}
-                    alt={`Denah ${unit.name}`}
-                    width={800}
-                    height={1000}
-                    className="h-auto w-full object-contain"
-                  />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-zinc-700">
-                    Denah {unit.name}
-                  </span>
-                </div>
-              )}
-            </div>
+            <UnitGallery images={galleryImages} />
 
             {/* Info */}
             <div className="flex flex-col gap-6">
               <div>
-                <h1 className="text-4xl font-semibold tracking-tight text-zinc-900">
+                <h1 className="font-heading text-4xl font-semibold tracking-tight text-navy-950 sm:text-5xl">
                   {unit.name}
                 </h1>
-                <p className="mt-2 text-lg text-zinc-600">
+                <p className="mt-2 text-lg text-zinc-600 tabular-nums">
                   Tipe {unit.buildingArea}/{unit.landArea} ·{" "}
                   {unit.bedrooms} KT / {unit.bathrooms} KM
                 </p>
               </div>
 
               <div>
-                <p className="text-3xl font-semibold tracking-tight text-emerald-900">
-                  {priceLabel(unit)}
+                <p className="font-heading text-3xl font-semibold tracking-tight text-navy-950 tabular-nums sm:text-4xl">
+                  {formatPrice(unit.price ?? 0)}
                 </p>
-                <p className="mt-1 text-sm text-zinc-500">
-                  {site.promo}. Cicilan flat ±Rp1 juta/bulan.*
+                <p className="mt-2 text-sm leading-relaxed text-zinc-500">
+                  Harga dasar. {site.promo}. Cicilan flat mulai{" "}
+                  {pricingStats[2].value}/bulan.*
                 </p>
               </div>
 
               <ul className="space-y-2.5 text-zinc-700">
                 {unit.features.map((feature) => (
                   <li key={feature} className="flex gap-3">
-                    <span aria-hidden className="font-bold text-emerald-600">
+                    <span aria-hidden className="font-bold text-gold-600">
                       ✓
                     </span>
                     {feature}
@@ -136,13 +118,13 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   href={waLink(unit.name)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-12 flex-1 items-center justify-center rounded-full bg-emerald-900 font-medium text-white transition-colors hover:bg-emerald-800"
+                  className="flex h-12 flex-1 items-center justify-center rounded-full bg-navy-950 font-medium text-white transition-all duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98]"
                 >
                   Tanya Unit Ini via WhatsApp
                 </a>
                 <Link
-                  href="/#katalog"
-                  className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition-colors hover:bg-zinc-50"
+                  href="/"
+                  className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition-all duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"
                 >
                   ← Unit Lainnya
                 </Link>
@@ -154,25 +136,26 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   via form kontak untuk prioritas booking.
                 </p>
               )}
-              <p className="text-xs text-zinc-400">
-                *Syarat dan ketentuan berlaku. Harga & ketersediaan unit dapat
-                berubah — hubungi marketing untuk info terbaru.
+              <p className="text-xs leading-relaxed text-zinc-400">
+                *Syarat dan ketentuan berlaku. Blok hook +Rp5 jt, selisih tanah
+                +Rp1 jt/m², carport/taman +Rp500 rb/m — detail lengkap di
+                bagian Harga & Siteplan. Hubungi marketing untuk info terbaru.
               </p>
             </div>
           </div>
 
           {/* Spesifikasi */}
-          <section className="mt-16">
-            <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
+          <section className="mt-20">
+            <h2 className="font-heading text-2xl font-semibold tracking-tight text-navy-950">
               Spesifikasi
             </h2>
-            <dl className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6 rounded-2xl border border-black/5 bg-zinc-50 p-8 sm:grid-cols-3 lg:grid-cols-6">
+            <dl className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6 rounded-3xl border border-navy-950/5 bg-zinc-50 p-8 sm:grid-cols-3 lg:grid-cols-6">
               {specs.map((spec) => (
                 <div key={spec.label}>
                   <dt className="text-xs uppercase tracking-wide text-zinc-500">
                     {spec.label}
                   </dt>
-                  <dd className="mt-1 text-lg font-semibold text-zinc-900">
+                  <dd className="mt-1 text-lg font-semibold text-navy-950 tabular-nums">
                     {spec.value}
                   </dd>
                 </div>

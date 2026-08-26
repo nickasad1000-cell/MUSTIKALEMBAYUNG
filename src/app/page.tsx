@@ -1,8 +1,13 @@
 import Image from "next/image";
 import { getAllUnits } from "@/lib/units";
-import { galleryItems, site, waLink } from "@/lib/site";
+import { pricingStats, site, waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { ScrollManager } from "@/components/site/scroll-manager";
+import { Reveal } from "@/components/site/reveal";
+import { GalleryGrid } from "@/components/site/gallery-grid";
+import { DocGrid } from "@/components/site/doc-grid";
+import { SmoothLink } from "@/components/site/smooth-link";
 import { UnitCatalog } from "@/components/catalog/unit-catalog";
 import { LeadForm } from "@/components/forms/lead-form";
 
@@ -24,16 +29,26 @@ const HIGHLIGHTS = [
   },
 ];
 
+function Eyebrow({ children }: { children: string }) {
+  return (
+    <p className="inline-flex items-center gap-2 rounded-full border border-navy-950/10 bg-navy-950/[0.04] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-navy-800">
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+      {children}
+    </p>
+  );
+}
+
 export default function Home() {
   const units = getAllUnits();
 
   return (
     <div className="flex flex-col flex-1 bg-white font-sans">
+      <ScrollManager />
       <Header />
 
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden bg-emerald-950 text-white">
+        <section className="relative overflow-hidden bg-navy-950 text-white">
           <Image
             src="/assets/tampak-depan.jpg"
             alt=""
@@ -45,14 +60,16 @@ export default function Home() {
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-950/80 to-emerald-950/40"
+            className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/85 to-navy-950/40"
           />
-          <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-6 px-6 py-28 sm:py-36">
+          <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-7 px-6 pb-28 pt-40 sm:pb-36 sm:pt-52">
             <p className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm backdrop-blur">
               {site.tagline}
             </p>
-            <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-              Rumah Siap Huni di Mustika Lembayung Sumbersuko
+            <h1 className="max-w-2xl font-heading text-4xl font-semibold leading-[1.1] tracking-tight sm:text-6xl">
+              Rumah Siap Huni di{" "}
+              <span className="text-gold-400">Mustika Lembayung</span>{" "}
+              Sumbersuko
             </h1>
             <p className="max-w-xl text-lg leading-relaxed text-white/90">
               Rumah subsidi berspek komersial — full granit, canopy carport,
@@ -60,17 +77,17 @@ export default function Home() {
               langsung terima kunci. Ready {site.readyUnits} unit.
             </p>
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-              <a
-                href="#katalog"
-                className="flex h-12 items-center justify-center rounded-full bg-white px-6 font-medium text-emerald-950 transition-colors hover:bg-emerald-50"
+              <SmoothLink
+                target="katalog"
+                className="flex h-12 items-center justify-center rounded-full bg-white px-7 font-medium text-navy-950 transition-all duration-300 ease-brand hover:bg-gold-400 active:scale-[0.97]"
               >
                 Lihat Katalog Unit
-              </a>
+              </SmoothLink>
               <a
                 href={waLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/10 px-6 font-medium text-white backdrop-blur transition-colors hover:bg-white/20"
+                className="flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/10 px-7 font-medium text-white backdrop-blur transition-all duration-300 ease-brand hover:bg-white/20 active:scale-[0.97]"
               >
                 Chat WhatsApp {site.whatsappDisplay}
               </a>
@@ -79,127 +96,155 @@ export default function Home() {
         </section>
 
         {/* Promo strip */}
-        <section className="border-b border-amber-200 bg-amber-50 py-4">
-          <p className="mx-auto max-w-6xl px-6 text-center text-sm font-medium text-amber-900">
+        <section className="border-b border-gold-500/20 bg-gold-400 py-4">
+          <p className="mx-auto max-w-6xl px-6 text-center text-sm font-semibold text-navy-950">
             🎉 Promo Siap Huni: booking cuma Rp100 ribu — free DP, free biaya
             balik nama, cicilan flat ±Rp1 juta sampai lunas.
           </p>
         </section>
 
         {/* Keunggulan */}
-        <section id="keunggulan" className="bg-zinc-50 py-24">
+        <section id="keunggulan" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
           <div className="mx-auto w-full max-w-6xl px-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-zinc-900">
-              Mengapa Mustika Lembayung?
-            </h2>
-            <div className="mt-12 grid gap-8 md:grid-cols-3">
-              {HIGHLIGHTS.map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-2xl border border-black/5 bg-white p-8 shadow-sm"
-                >
-                  <h3 className="text-lg font-semibold text-emerald-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-zinc-600">
-                    {item.description}
-                  </p>
-                </div>
+            <Reveal>
+              <Eyebrow>Kenapa Mustika Lembayung</Eyebrow>
+              <h2 className="mt-5 max-w-xl font-heading text-3xl font-semibold tracking-tight text-navy-950 sm:text-4xl">
+                Rumah subsidi yang tidak terasa seperti rumah subsidi
+              </h2>
+            </Reveal>
+            <div className="mt-14 grid gap-6 md:grid-cols-3">
+              {HIGHLIGHTS.map((item, i) => (
+                <Reveal key={item.title} delay={i * 120}>
+                  <div className="h-full rounded-3xl border border-navy-950/5 bg-navy-950/[0.03] p-2">
+                    <div className="h-full rounded-[1.25rem] bg-white p-7 shadow-sm">
+                      <span
+                        aria-hidden
+                        className="font-heading text-3xl font-semibold text-gold-500"
+                      >
+                        0{i + 1}
+                      </span>
+                      <h3 className="mt-3 text-lg font-semibold text-navy-950">
+                        {item.title}
+                      </h3>
+                      <p className="mt-3 leading-relaxed text-zinc-600">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
         {/* Katalog Unit */}
-        <section id="katalog" className="py-24">
+        <section id="katalog" className="scroll-mt-28 py-24 sm:py-32">
           <div className="mx-auto w-full max-w-6xl px-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-zinc-900">
-              Katalog Unit
-            </h2>
-            <p className="mt-2 text-zinc-600">
-              Pilih tipe hunian yang paling sesuai untuk keluarga Anda.
-            </p>
+            <Reveal>
+              <Eyebrow>Katalog Unit</Eyebrow>
+              <h2 className="mt-5 max-w-xl font-heading text-3xl font-semibold tracking-tight text-navy-950 sm:text-4xl">
+                Pilih tipe hunian untuk keluarga Anda
+              </h2>
+            </Reveal>
             <UnitCatalog units={units} />
           </div>
         </section>
 
-        {/* Galeri */}
-        <section id="galeri" className="bg-zinc-50 py-24">
+        {/* Harga & Siteplan */}
+        <section id="harga" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
           <div className="mx-auto w-full max-w-6xl px-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-zinc-900">
-              Galeri
-            </h2>
-            <p className="mt-2 text-zinc-600">
-              Suasana lingkungan dan fasilitas Mustika Lembayung.
-            </p>
-            <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3">
-              {galleryItems.map((item) => (
-                <figure
-                  key={item.caption}
-                  className="group relative overflow-hidden rounded-2xl"
-                >
-                  <div className="relative aspect-[4/3] bg-gradient-to-br from-emerald-100 to-violet-100 transition-transform duration-300 group-hover:scale-[1.02]">
-                    {item.src ? (
-                      <Image
-                        src={item.src}
-                        alt={item.caption}
-                        fill
-                        sizes="(min-width: 768px) 33vw, 50vw"
-                        className={`object-cover ${item.src.endsWith(".png") ? "object-contain p-4" : ""}`}
-                      />
-                    ) : (
-                      <span className="absolute inset-0 flex items-center justify-center p-4 text-center text-xs text-emerald-900/50">
-                        {item.caption} — foto segera
-                      </span>
-                    )}
+            <Reveal>
+              <Eyebrow>Transparan & Jelas</Eyebrow>
+              <h2 className="mt-5 max-w-xl font-heading text-3xl font-semibold tracking-tight text-navy-950 sm:text-4xl">
+                Harga & siteplan
+              </h2>
+              <p className="mt-4 max-w-2xl leading-relaxed text-zinc-600">
+                Klik dokumen untuk memperbesar — semua angka resmi dari
+                developer, tanpa biaya tersembunyi.
+              </p>
+            </Reveal>
+            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              {pricingStats.map((stat, i) => (
+                <Reveal key={stat.label} delay={i * 100}>
+                  <div className="rounded-2xl border border-navy-950/5 bg-white p-6 shadow-sm">
+                    <p className="font-heading text-3xl font-semibold tracking-tight text-navy-950 tabular-nums">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 text-sm text-zinc-600">{stat.label}</p>
                   </div>
-                  <figcaption className="mt-2 text-sm text-zinc-600">
-                    {item.caption}
-                  </figcaption>
-                </figure>
+                </Reveal>
               ))}
             </div>
+            <DocGrid />
+          </div>
+        </section>
+
+        {/* Galeri */}
+        <section id="galeri" className="scroll-mt-28 py-24 sm:py-32">
+          <div className="mx-auto w-full max-w-6xl px-6">
+            <Reveal>
+              <Eyebrow>Galeri</Eyebrow>
+              <h2 className="mt-5 max-w-xl font-heading text-3xl font-semibold tracking-tight text-navy-950 sm:text-4xl">
+                Lihat langsung unit & lingkungannya
+              </h2>
+              <p className="mt-4 max-w-2xl leading-relaxed text-zinc-600">
+                Foto asli unit siap huni. Klik foto untuk memperbesar.
+              </p>
+            </Reveal>
+            <GalleryGrid />
           </div>
         </section>
 
         {/* Lokasi */}
-        <section id="lokasi" className="py-24">
+        <section id="lokasi" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
           <div className="mx-auto w-full max-w-6xl px-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-zinc-900">
-              Lokasi Strategis
-            </h2>
-            <p className="mt-2 max-w-xl text-zinc-600">{site.address}</p>
-            <div className="mt-10 overflow-hidden rounded-2xl border border-black/5 shadow-sm">
-              <iframe
-                title={`Peta lokasi ${site.name}`}
-                src={site.mapsEmbed}
-                width="100%"
-                height="420"
-                style={{ border: 0 }}
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-            <a
-              href={site.mapsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-emerald-700 hover:text-emerald-900"
-            >
-              📍 Buka di Google Maps →
-            </a>
+            <Reveal>
+              <Eyebrow>Lokasi Strategis</Eyebrow>
+              <h2 className="mt-5 max-w-xl font-heading text-3xl font-semibold tracking-tight text-navy-950 sm:text-4xl">
+                Sumbersuko, Lumajang
+              </h2>
+              <p className="mt-4 max-w-2xl leading-relaxed text-zinc-600">
+                {site.address} — akses mudah ke jalan kabupaten, sekolah,
+                pasar, dan pusat keramaian.
+              </p>
+            </Reveal>
+            <Reveal delay={150}>
+              <div className="mt-10 overflow-hidden rounded-3xl border border-navy-950/5 shadow-sm">
+                <iframe
+                  title={`Peta lokasi ${site.name}`}
+                  src={site.mapsEmbed}
+                  width="100%"
+                  height="420"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+              <a
+                href={site.mapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-navy-700 transition-colors duration-300 hover:text-navy-950"
+              >
+                📍 Buka di Google Maps →
+              </a>
+            </Reveal>
           </div>
         </section>
 
         {/* CTA / Kontak */}
-        <section id="kontak" className="bg-emerald-950 py-24 text-white">
+        <section id="kontak" className="scroll-mt-28 bg-navy-950 py-24 text-white sm:py-32">
           <div className="mx-auto grid w-full max-w-6xl items-start gap-12 px-6 lg:grid-cols-2">
-            <div className="flex flex-col items-start gap-6">
-              <h2 className="max-w-md text-3xl font-semibold tracking-tight sm:text-4xl">
-                Siap Menempati Rumah Impian Anda?
+            <Reveal>
+              <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold-400" />
+                Konsultasi Gratis
+              </p>
+              <h2 className="mt-5 max-w-md font-heading text-3xl font-semibold tracking-tight sm:text-5xl">
+                Siap menempati rumah impian Anda?
               </h2>
-              <p className="max-w-md leading-relaxed text-white/80">
+              <p className="mt-5 max-w-md leading-relaxed text-white/80">
                 Tim marketing kami siap membantu Anda — mulai dari survei
                 lokasi, simulasi KPR, hingga proses akad. Isi form di samping
                 atau chat langsung via WhatsApp.
@@ -208,17 +253,19 @@ export default function Home() {
                 href={waLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-12 items-center justify-center rounded-full bg-white px-8 font-medium text-emerald-950 transition-colors hover:bg-emerald-50"
+                className="mt-8 flex h-12 w-fit items-center justify-center rounded-full bg-white px-8 font-medium text-navy-950 transition-all duration-300 ease-brand hover:bg-gold-400 active:scale-[0.97]"
               >
                 Konsultasi Gratis via WhatsApp
               </a>
-              <p className="text-sm text-white/60">
+              <p className="mt-6 text-sm text-white/60">
                 ☎ {site.whatsappDisplay} · {site.address}
               </p>
-            </div>
-            <div className="flex justify-center lg:justify-end">
-              <LeadForm units={units} />
-            </div>
+            </Reveal>
+            <Reveal delay={150}>
+              <div className="flex justify-center lg:justify-end">
+                <LeadForm units={units} />
+              </div>
+            </Reveal>
           </div>
         </section>
       </main>

@@ -23,7 +23,7 @@ export function waLink(text?: string): string {
 }
 
 export interface GalleryItem {
-  src?: string;
+  src: string;
   caption: string;
 }
 
@@ -34,4 +34,37 @@ export const galleryItems: GalleryItem[] = [
   { src: "/assets/kamar-mandi.jpg", caption: "Kamar Mandi" },
   { src: "/assets/tampak-depan.jpg", caption: "Tampak Depan Rumah" },
   { src: "/assets/denah-tipe-36.png", caption: "Denah Tipe 36" },
+];
+
+export interface DocItem {
+  src: string;
+  title: string;
+  description: string;
+}
+
+export const docItems: DocItem[] = [
+  {
+    src: "/assets/daftar-harga.png",
+    title: "Daftar Harga per Blok",
+    description:
+      "Harga tipe 36/60 blok A–E, biaya peningkatan mutu kualitas, dan blok hook.",
+  },
+  {
+    src: "/assets/siteplan.png",
+    title: "Siteplan Lokasi",
+    description:
+      "Denah blok A–E, lebar jalan ROW 6–7 m, pos satpam, dan akses Jalan Kabupaten.",
+  },
+  {
+    src: "/assets/ketentuan-kpr.png",
+    title: "Simulasi & Ketentuan KPR",
+    description:
+      "DP, plafond, simulasi angsuran 10/15/20 tahun, ketentuan & persyaratan berkas.",
+  },
+];
+
+export const pricingStats = [
+  { value: "Rp166 jt", label: "Harga unit tipe 36/60" },
+  { value: "Rp5,66 jt", label: "DP (tanda jadi + mutu)" },
+  { value: "Rp1,07 jt", label: "Angsuran per bulan · 20 th" },
 ];
