@@ -47,7 +47,7 @@ export function Header() {
             }
           }}
           className="flex items-center gap-3"
-          aria-label="Kembali ke atas"
+          aria-label="Mustika Lembayung — kembali ke atas"
         >
           <Image
             src="/assets/logo-icon-dark.png"

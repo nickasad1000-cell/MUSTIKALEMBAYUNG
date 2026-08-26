@@ -50,7 +50,7 @@ export default function Home() {
         {/* Hero */}
         <section className="relative overflow-hidden bg-navy-950 text-white">
           <Image
-            src="/assets/tampak-depan.jpg"
+            src="/assets/hero.jpg"
             alt=""
             fill
             priority

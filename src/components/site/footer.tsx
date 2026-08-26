@@ -41,7 +41,7 @@ export function Footer() {
               Google Maps
             </a>
           </p>
-          <p className="text-white/40">
+          <p className="text-white/60">
             Harga & spesifikasi dapat berubah tanpa pemberitahuan.
           </p>
         </div>
