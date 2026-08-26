@@ -54,6 +54,8 @@ export default function Home() {
             alt=""
             fill
             priority
+            fetchPriority="high"
+            quality={60}
             sizes="100vw"
             className="object-cover opacity-40"
             aria-hidden
