@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { getUnitBySlug } from "@/lib/units";
 
 const leadSchema = z.object({
   name: z.string().trim().min(2).max(100),
@@ -23,6 +24,14 @@ export async function POST(request: Request) {
 
   const parsed = leadSchema.safeParse(body);
   if (!parsed.success) {
+    return NextResponse.json(
+      { ok: false, reason: "VALIDATION_ERROR" },
+      { status: 200 }
+    );
+  }
+
+  // unitSlug harus slug unit yang benar-benar ada di katalog
+  if (parsed.data.unitSlug && !getUnitBySlug(parsed.data.unitSlug)) {
     return NextResponse.json(
       { ok: false, reason: "VALIDATION_ERROR" },
       { status: 200 }

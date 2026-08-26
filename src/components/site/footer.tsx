@@ -25,7 +25,7 @@ export function Footer() {
               href={site.mapsLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-white"
+              className="inline-flex min-h-11 items-center underline underline-offset-2 hover:text-white"
             >
               Google Maps
             </a>

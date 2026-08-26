@@ -138,7 +138,7 @@ export function UnitCatalog({ units }: { units: Unit[] }) {
                 </p>
                 <Link
                   href={`/units/${unit.slug}`}
-                  className="text-sm font-medium text-emerald-700 hover:text-emerald-900"
+                  className="inline-flex min-h-11 items-center rounded-full px-3 text-sm font-medium text-emerald-700 hover:text-emerald-900"
                 >
                   Detail →
                 </Link>
@@ -176,6 +176,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        aria-label={label}
         className="h-9 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-800 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20"
       >
         {options.map((opt) => (

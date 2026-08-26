@@ -131,7 +131,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
                 ))}
               </ul>
 
-              <div className="mt-auto flex flex-col gap-3 sm:flex-row">
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <a
                   href={waLink(unit.name)}
                   target="_blank"

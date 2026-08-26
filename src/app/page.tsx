@@ -185,7 +185,7 @@ export default function Home() {
               href={site.mapsLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-emerald-700 hover:text-emerald-900"
+              className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-emerald-700 hover:text-emerald-900"
             >
               📍 Buka di Google Maps →
             </a>
