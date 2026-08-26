@@ -19,7 +19,7 @@ export function UnitGallery({
             key={img.src}
             onClick={() => setIndex(i)}
             aria-label={`Perbesar ${img.caption}`}
-            className={`group relative block w-full overflow-hidden rounded-3xl bg-gradient-to-br from-navy-100 to-gold-100 transition-all duration-500 ease-brand hover:shadow-xl hover:shadow-navy-950/10 focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-2 ${
+            className={`group relative block w-full overflow-hidden rounded-3xl bg-gradient-to-br from-navy-100 to-gold-100 transition duration-500 ease-brand hover:shadow-xl hover:shadow-navy-950/10 focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-2 ${
               img.png ? "border border-navy-950/5 bg-white" : "aspect-[4/3]"
             }`}
           >
@@ -36,7 +36,7 @@ export function UnitGallery({
             />
             <span
               aria-hidden
-              className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-navy-950/50 text-white opacity-0 backdrop-blur transition-all duration-500 ease-brand group-hover:opacity-100"
+              className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-navy-950/50 text-white opacity-0 backdrop-blur transition duration-500 ease-brand group-hover:opacity-100"
             >
               ⤢
             </span>

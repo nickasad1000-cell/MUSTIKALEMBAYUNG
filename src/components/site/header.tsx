@@ -52,8 +52,8 @@ export function Header() {
           <Image
             src="/assets/logo-icon-dark.png"
             alt={`Logo ${site.developer}`}
-            width={30}
-            height={32}
+            width={32}
+            height={29}
             className="h-8 w-auto"
           />
           <span className="font-heading text-lg font-semibold tracking-tight text-navy-950">
@@ -65,7 +65,7 @@ export function Header() {
             <button
               key={item.id}
               onClick={() => go(item.id)}
-              className="min-h-11 rounded-full px-4 font-medium transition-all duration-300 ease-brand hover:bg-navy-950/5 hover:text-navy-950"
+              className="min-h-11 rounded-full px-4 font-medium transition duration-300 ease-brand hover:bg-navy-950/5 hover:text-navy-950"
             >
               {item.label}
             </button>
@@ -73,7 +73,7 @@ export function Header() {
         </nav>
         <button
           onClick={() => go("kontak")}
-          className="flex h-11 items-center rounded-full bg-navy-950 px-5 text-sm font-medium text-white transition-all duration-300 ease-brand hover:bg-navy-800 active:scale-[0.97]"
+          className="flex h-11 items-center rounded-full bg-navy-950 px-5 text-sm font-medium text-white transition duration-300 ease-brand hover:bg-navy-800 active:scale-[0.97]"
         >
           Hubungi Kami
         </button>

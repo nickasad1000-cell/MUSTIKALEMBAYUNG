@@ -19,7 +19,7 @@ export function GalleryGrid() {
             <button
               onClick={() => setIndex(i)}
               aria-label={`Perbesar foto ${item.caption}`}
-              className="group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-navy-100 to-gold-100 transition-all duration-500 ease-brand hover:shadow-xl hover:shadow-navy-950/10 focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-2"
+              className="group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-navy-100 to-gold-100 transition duration-500 ease-brand hover:shadow-xl hover:shadow-navy-950/10 focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-2"
             >
               <Image
                 src={item.src}
@@ -32,7 +32,7 @@ export function GalleryGrid() {
               />
               <span
                 aria-hidden
-                className="absolute inset-0 flex items-center justify-center bg-navy-950/0 text-2xl text-white opacity-0 transition-all duration-500 ease-brand group-hover:bg-navy-950/30 group-hover:opacity-100"
+                className="absolute inset-0 flex items-center justify-center bg-navy-950/0 text-2xl text-white opacity-0 transition duration-500 ease-brand group-hover:bg-navy-950/30 group-hover:opacity-100"
               >
                 ⤢
               </span>

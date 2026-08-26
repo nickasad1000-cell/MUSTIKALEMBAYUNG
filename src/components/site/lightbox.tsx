@@ -61,7 +61,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
         <button
           onClick={onClose}
           aria-label="Tutup"
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-xl transition-all duration-300 ease-brand hover:bg-white/20 active:scale-95"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-xl transition duration-300 ease-brand hover:bg-white/20 active:scale-95"
         >
           ✕
         </button>
@@ -73,7 +73,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
         <button
           onClick={prev}
           aria-label="Sebelumnya"
-          className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white transition-all duration-300 ease-brand hover:bg-white/20 active:scale-95 sm:left-6"
+          className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white transition duration-300 ease-brand hover:bg-white/20 active:scale-95 sm:left-6"
         >
           ‹
         </button>
@@ -91,7 +91,7 @@ export function Lightbox({ images, index, onClose, onNavigate }: LightboxProps) 
         <button
           onClick={next}
           aria-label="Berikutnya"
-          className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white transition-all duration-300 ease-brand hover:bg-white/20 active:scale-95 sm:right-6"
+          className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white transition duration-300 ease-brand hover:bg-white/20 active:scale-95 sm:right-6"
         >
           ›
         </button>

@@ -41,13 +41,43 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Residence",
+  name: "Mustika Lembayung Sumbersuko",
+  description:
+    "Perumahan rumah subsidi siap huni tanpa renovasi di Sumbersuko, Lumajang oleh PT. Lembayung Wanantara Padha.",
+  url: "https://mustikalembayung.vercel.app",
+  telephone: "+6281333372016",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Ds. Rekesan RT.02 RW.10, Sumbersuko",
+    addressLocality: "Lumajang",
+    addressRegion: "Jawa Timur",
+    addressCountry: "ID",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: -8.1670075, longitude: 113.1694113 },
+  offers: {
+    "@type": "Offer",
+    price: "166000000",
+    priceCurrency: "IDR",
+    availability: "https://schema.org/InStock",
+  },
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

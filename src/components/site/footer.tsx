@@ -9,9 +9,9 @@ export function Footer() {
           <Image
             src="/assets/logo.png"
             alt={site.developer}
-            width={180}
-            height={66}
-            className="h-auto w-44 opacity-95"
+            width={128}
+            height={116}
+            className="h-auto w-28 opacity-95"
           />
           <p>
             © {new Date().getFullYear()} {site.developer}.

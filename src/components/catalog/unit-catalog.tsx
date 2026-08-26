@@ -89,7 +89,7 @@ export function UnitCatalog({ units }: { units: Unit[] }) {
         {filtered.map((unit) => (
           <article
             key={unit.slug}
-            className="group flex flex-col rounded-3xl border border-navy-950/5 bg-navy-950/[0.03] p-2 shadow-sm transition-all duration-500 ease-brand hover:-translate-y-1 hover:shadow-xl hover:shadow-navy-950/10"
+            className="group flex flex-col rounded-3xl border border-navy-950/5 bg-navy-950/[0.03] p-2 shadow-sm transition duration-500 ease-brand hover:-translate-y-1 hover:shadow-xl hover:shadow-navy-950/10"
           >
             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-navy-100 to-gold-100">
               <span

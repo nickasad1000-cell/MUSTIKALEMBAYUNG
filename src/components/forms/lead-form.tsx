@@ -197,7 +197,7 @@ export function LeadForm({ units }: { units: Unit[] }) {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="h-12 w-full rounded-full bg-navy-950 text-sm font-medium text-white transition-all duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98] disabled:opacity-60"
+                className="h-12 w-full rounded-full bg-navy-950 text-sm font-medium text-white transition duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98] disabled:opacity-60"
               >
                 {status === "loading" ? "Mengirim…" : "Kirim & Minta Info"}
               </button>

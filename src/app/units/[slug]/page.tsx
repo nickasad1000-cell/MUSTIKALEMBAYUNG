@@ -118,13 +118,13 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   href={waLink(unit.name)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-12 flex-1 items-center justify-center rounded-full bg-navy-950 font-medium text-white transition-all duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98]"
+                  className="flex h-12 flex-1 items-center justify-center rounded-full bg-navy-950 font-medium text-white transition duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98]"
                 >
                   Tanya Unit Ini via WhatsApp
                 </a>
                 <Link
                   href="/"
-                  className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition-all duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"
+                  className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"
                 >
                   ← Unit Lainnya
                 </Link>

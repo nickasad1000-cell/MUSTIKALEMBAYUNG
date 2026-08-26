@@ -10,6 +10,8 @@ import { DocGrid } from "@/components/site/doc-grid";
 import { SmoothLink } from "@/components/site/smooth-link";
 import { UnitCatalog } from "@/components/catalog/unit-catalog";
 import { LeadForm } from "@/components/forms/lead-form";
+import { InstallmentCalculator } from "@/components/site/installment-calculator";
+import { FloatingWa } from "@/components/site/floating-wa";
 
 const HIGHLIGHTS = [
   {
@@ -81,7 +83,7 @@ export default function Home() {
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
               <SmoothLink
                 target="katalog"
-                className="flex h-12 items-center justify-center rounded-full bg-white px-7 font-medium text-navy-950 transition-all duration-300 ease-brand hover:bg-gold-400 active:scale-[0.97]"
+                className="flex h-12 items-center justify-center rounded-full bg-white px-7 font-medium text-navy-950 transition duration-300 ease-brand hover:bg-gold-400 active:scale-[0.97]"
               >
                 Lihat Katalog Unit
               </SmoothLink>
@@ -89,7 +91,7 @@ export default function Home() {
                 href={waLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/10 px-7 font-medium text-white backdrop-blur transition-all duration-300 ease-brand hover:bg-white/20 active:scale-[0.97]"
+                className="flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/10 px-7 font-medium text-white backdrop-blur transition duration-300 ease-brand hover:bg-white/20 active:scale-[0.97]"
               >
                 Chat WhatsApp {site.whatsappDisplay}
               </a>
@@ -177,6 +179,7 @@ export default function Home() {
                 </Reveal>
               ))}
             </div>
+            <InstallmentCalculator />
             <DocGrid />
           </div>
         </section>
@@ -255,7 +258,7 @@ export default function Home() {
                 href={waLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 flex h-12 w-fit items-center justify-center rounded-full bg-white px-8 font-medium text-navy-950 transition-all duration-300 ease-brand hover:bg-gold-400 active:scale-[0.97]"
+                className="mt-8 flex h-12 w-fit items-center justify-center rounded-full bg-white px-8 font-medium text-navy-950 transition duration-300 ease-brand hover:bg-gold-400 active:scale-[0.97]"
               >
                 Konsultasi Gratis via WhatsApp
               </a>
@@ -273,6 +276,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <FloatingWa />
     </div>
   );
 }

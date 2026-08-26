@@ -15,7 +15,7 @@ export function DocGrid() {
           <button
             key={doc.title}
             onClick={() => setIndex(i)}
-            className="group flex flex-col rounded-3xl border border-navy-950/5 bg-navy-950/[0.03] p-2 text-left shadow-sm transition-all duration-500 ease-brand hover:-translate-y-1 hover:shadow-xl hover:shadow-navy-950/10 focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-2"
+            className="group flex flex-col rounded-3xl border border-navy-950/5 bg-navy-950/[0.03] p-2 text-left shadow-sm transition duration-500 ease-brand hover:-translate-y-1 hover:shadow-xl hover:shadow-navy-950/10 focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-2"
           >
             <span className="relative block aspect-[3/4] overflow-hidden rounded-[1.25rem] bg-white">
               <Image
@@ -27,7 +27,7 @@ export function DocGrid() {
               />
               <span
                 aria-hidden
-                className="absolute inset-0 flex items-center justify-center bg-navy-950/0 text-2xl text-white opacity-0 transition-all duration-500 ease-brand group-hover:bg-navy-950/30 group-hover:opacity-100"
+                className="absolute inset-0 flex items-center justify-center bg-navy-950/0 text-2xl text-white opacity-0 transition duration-500 ease-brand group-hover:bg-navy-950/30 group-hover:opacity-100"
               >
                 ⤢ Klik untuk perbesar
               </span>
