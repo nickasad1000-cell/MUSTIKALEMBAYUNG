@@ -173,9 +173,12 @@ function FilterSelect({
         {label}
       </span>
       <select
+        id={`filter-${label.toLowerCase().replace(/\s+/g, "-")}`}
+        name={`filter-${label.toLowerCase().replace(/\s+/g, "-")}`}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         aria-label={label}
+        autoComplete="off"
         className="h-10 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-800 outline-none transition-colors duration-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-500/20"
       >
         {options.map((opt) => (

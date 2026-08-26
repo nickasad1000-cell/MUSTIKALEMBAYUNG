@@ -99,6 +99,7 @@ export function LeadForm({ units }: { units: Unit[] }) {
                   name="name"
                   required
                   minLength={2}
+                  autoComplete="name"
                   placeholder="Nama Anda"
                   className={inputClass}
                 />
@@ -117,6 +118,7 @@ export function LeadForm({ units }: { units: Unit[] }) {
                   required
                   type="tel"
                   pattern="[0-9+\-\s]{8,}"
+                  autoComplete="tel"
                   placeholder="08xxxxxxxxxx"
                   className={`${inputClass} tabular-nums`}
                 />
@@ -133,6 +135,7 @@ export function LeadForm({ units }: { units: Unit[] }) {
                   id="lead-email"
                   name="email"
                   type="email"
+                  autoComplete="email"
                   placeholder="nama@email.com"
                   className={inputClass}
                 />
@@ -173,6 +176,7 @@ export function LeadForm({ units }: { units: Unit[] }) {
                   name="message"
                   rows={3}
                   maxLength={1000}
+                  autoComplete="off"
                   placeholder="Pertanyaan atau jadwal kunjungan yang diinginkan…"
                   className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-navy-950 outline-none transition-colors duration-300 placeholder:text-zinc-400 focus:border-navy-500 focus:ring-2 focus:ring-navy-500/20"
                 />
