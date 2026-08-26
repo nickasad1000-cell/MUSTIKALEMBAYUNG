@@ -1,6 +1,8 @@
 # Mustika Lembayung — Website Katalog Perumahan
 
-Landing page & katalog lengkap Perumahan **Mustika Lembayung**.
+Landing page & katalog lengkap Perumahan **Mustika Lembayung** Sumbersuko, Lumajang.
+
+**Live:** https://mustikalembayung.vercel.app
 
 ## Stack Teknologi
 
