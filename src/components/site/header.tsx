@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 
@@ -5,11 +6,17 @@ export function Header() {
   return (
     <header className="sticky top-0 z-10 border-b border-black/5 bg-white/80 backdrop-blur">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-        <Link
-          href="/"
-          className="text-lg font-semibold tracking-tight text-emerald-950"
-        >
-          {site.name}
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/assets/logo-icon.png"
+            alt={`Logo ${site.developer}`}
+            width={22}
+            height={40}
+            className="h-9 w-auto"
+          />
+          <span className="text-lg font-semibold tracking-tight text-emerald-950">
+            {site.name}
+          </span>
         </Link>
         <nav className="hidden items-center gap-8 text-sm text-zinc-600 md:flex">
           <Link href="/#keunggulan" className="hover:text-emerald-900">

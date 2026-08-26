@@ -148,7 +148,8 @@ export function LeadForm({ units }: { units: Unit[] }) {
                 <option value="">— Belum menentukan —</option>
                 {units.map((unit) => (
                   <option key={unit.slug} value={unit.slug}>
-                    {unit.name} — {formatPriceShort(unit.price)}
+                    {unit.name}
+                    {unit.price ? ` — ${formatPriceShort(unit.price)}` : ""}
                   </option>
                 ))}
               </select>

@@ -10,7 +10,9 @@ export interface Unit {
   bedrooms: number;
   bathrooms: number;
   floors: number;
-  price: number;
+  price?: number | null;
+  image?: string;
+  denah?: string;
   status: UnitStatus;
   carport: number;
   features: string[];
@@ -32,6 +34,10 @@ export function formatPrice(price: number): string {
     currency: "IDR",
     maximumFractionDigits: 0,
   }).format(price);
+}
+
+export function priceLabel(unit: Unit): string {
+  return unit.price ? formatPrice(unit.price) : "Hubungi untuk harga";
 }
 
 export const STATUS_LABELS: Record<UnitStatus, string> = {

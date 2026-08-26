@@ -8,19 +8,19 @@ import { LeadForm } from "@/components/forms/lead-form";
 
 const HIGHLIGHTS = [
   {
-    title: "Lingkungan Asri",
+    title: "Siap Huni Tanpa Renovasi",
     description:
-      "Hijauan lembayung di setiap sudut cluster dengan taman tematik dan jalur pejalan kaki.",
+      "Setiap unit sudah termasuk canopy carport, pagar pembatas & roster depan, meja dapur set, dan kompor tanam. Bawa barang, langsung tinggal.",
   },
   {
-    title: "Akses Strategis",
+    title: "Spek Komersial",
     description:
-      "Dekat ke sekolah, pasar, rumah sakit, dan pintu tol — semua dalam radius 10 menit.",
+      "Lantai full granit, kusen aluminium, atap spandek, dan finishing cat rapi — kualitas bangunan setara rumah komersial dengan harga subsidi.",
   },
   {
-    title: "Keamanan 24 Jam",
+    title: "Lokasi Strategis",
     description:
-      "One gate system, CCTV antar-jemput area, dan patroli keamanan sepanjang hari.",
+      "Sumbersuko, Lumajang — dekat akses jalan utama, sekolah, pasar, dan pusat keramaian. Lingkungan pemukiman yang ramai dan aman.",
   },
 ];
 
@@ -34,20 +34,30 @@ export default function Home() {
       <main>
         {/* Hero */}
         <section className="relative overflow-hidden bg-emerald-950 text-white">
+          <Image
+            src="/assets/tampak-depan.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-40"
+            aria-hidden
+          />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-br from-emerald-950 via-emerald-900 to-violet-900 opacity-90"
+            className="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-950/80 to-emerald-950/40"
           />
           <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-6 px-6 py-28 sm:py-36">
-            <p className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm">
+            <p className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm backdrop-blur">
               {site.tagline}
             </p>
             <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-              Temukan Kedamaian di Hunian Modern Mustika Lembayung
+              Rumah Siap Huni di Mustika Lembayung Sumbersuko
             </h1>
-            <p className="max-w-xl text-lg leading-relaxed text-white/80">
-              Hunian nyaman dengan konsep hijau, lokasi strategis, dan harga
-              bersahabat — dirancang untuk keluarga Indonesia masa kini.
+            <p className="max-w-xl text-lg leading-relaxed text-white/90">
+              Rumah subsidi berspek komersial — full granit, canopy carport,
+              kompor tanam. Booking hanya <strong>Rp100 ribu</strong>, bisa
+              langsung terima kunci. Ready {site.readyUnits} unit.
             </p>
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
               <a
@@ -57,13 +67,23 @@ export default function Home() {
                 Lihat Katalog Unit
               </a>
               <a
-                href="#kontak"
-                className="flex h-12 items-center justify-center rounded-full border border-white/30 px-6 font-medium text-white transition-colors hover:bg-white/10"
+                href={waLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/10 px-6 font-medium text-white backdrop-blur transition-colors hover:bg-white/20"
               >
-                Jadwalkan Kunjungan
+                Chat WhatsApp {site.whatsappDisplay}
               </a>
             </div>
           </div>
+        </section>
+
+        {/* Promo strip */}
+        <section className="border-b border-amber-200 bg-amber-50 py-4">
+          <p className="mx-auto max-w-6xl px-6 text-center text-sm font-medium text-amber-900">
+            🎉 Promo Siap Huni: booking cuma Rp100 ribu — free DP, free biaya
+            balik nama, cicilan flat ±Rp1 juta sampai lunas.
+          </p>
         </section>
 
         {/* Keunggulan */}
@@ -125,7 +145,7 @@ export default function Home() {
                         alt={item.caption}
                         fill
                         sizes="(min-width: 768px) 33vw, 50vw"
-                        className="object-cover"
+                        className={`object-cover ${item.src.endsWith(".png") ? "object-contain p-4" : ""}`}
                       />
                     ) : (
                       <span className="absolute inset-0 flex items-center justify-center p-4 text-center text-xs text-emerald-900/50">
@@ -152,7 +172,7 @@ export default function Home() {
             <div className="mt-10 overflow-hidden rounded-2xl border border-black/5 shadow-sm">
               <iframe
                 title={`Peta lokasi ${site.name}`}
-                src={`https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery)}&output=embed`}
+                src={site.mapsEmbed}
                 width="100%"
                 height="420"
                 style={{ border: 0 }}
@@ -161,6 +181,14 @@ export default function Home() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
+            <a
+              href={site.mapsLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-emerald-700 hover:text-emerald-900"
+            >
+              📍 Buka di Google Maps →
+            </a>
           </div>
         </section>
 
@@ -184,6 +212,9 @@ export default function Home() {
               >
                 Konsultasi Gratis via WhatsApp
               </a>
+              <p className="text-sm text-white/60">
+                ☎ {site.whatsappDisplay} · {site.address}
+              </p>
             </div>
             <div className="flex justify-center lg:justify-end">
               <LeadForm units={units} />

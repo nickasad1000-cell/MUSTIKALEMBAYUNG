@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   getAllUnits,
   getUnitBySlug,
-  formatPrice,
+  priceLabel,
   STATUS_LABELS,
 } from "@/lib/units";
-import { waLink } from "@/lib/site";
+import { site, waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 
@@ -25,8 +26,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!unit) return { title: "Unit tidak ditemukan" };
 
   return {
-    title: `${unit.name} — Mustika Lembayung`,
-    description: `Tipe ${unit.buildingArea}/${unit.landArea}, ${unit.bedrooms} kamar tidur, ${unit.bathrooms} kamar mandi. Harga mulai ${formatPrice(unit.price)}.`,
+    title: `${unit.name} — ${site.name}`,
+    description: `Rumah ${unit.buildingArea}/${unit.landArea} m², ${unit.bedrooms} kamar tidur, ${unit.bathrooms} kamar mandi. Siap huni tanpa renovasi di ${site.address}. ${site.promo}.`,
   };
 }
 
@@ -65,10 +66,37 @@ export default async function UnitDetailPage({ params }: PageProps) {
 
           <div className="mt-8 grid gap-12 lg:grid-cols-2">
             {/* Visual */}
-            <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-100 to-violet-100">
-              <span className="text-sm text-emerald-900/50">
-                Foto & denah {unit.name} — segera
-              </span>
+            <div className="flex flex-col gap-4">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-100 to-violet-100">
+                {unit.image ? (
+                  <Image
+                    src={unit.image}
+                    alt={`Foto ${unit.name}`}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover"
+                    priority
+                  />
+                ) : (
+                  <span className="flex h-full items-center justify-center text-sm text-emerald-900/50">
+                    Foto {unit.name} — segera
+                  </span>
+                )}
+              </div>
+              {unit.denah && (
+                <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white">
+                  <Image
+                    src={unit.denah}
+                    alt={`Denah ${unit.name}`}
+                    width={800}
+                    height={1000}
+                    className="h-auto w-full object-contain"
+                  />
+                  <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-zinc-700">
+                    Denah {unit.name}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Info */}
@@ -83,9 +111,14 @@ export default async function UnitDetailPage({ params }: PageProps) {
                 </p>
               </div>
 
-              <p className="text-3xl font-semibold tracking-tight text-emerald-900">
-                {formatPrice(unit.price)}
-              </p>
+              <div>
+                <p className="text-3xl font-semibold tracking-tight text-emerald-900">
+                  {priceLabel(unit)}
+                </p>
+                <p className="mt-1 text-sm text-zinc-500">
+                  {site.promo}. Cicilan flat ±Rp1 juta/bulan.*
+                </p>
+              </div>
 
               <ul className="space-y-2.5 text-zinc-700">
                 {unit.features.map((feature) => (
@@ -121,6 +154,10 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   via form kontak untuk prioritas booking.
                 </p>
               )}
+              <p className="text-xs text-zinc-400">
+                *Syarat dan ketentuan berlaku. Harga & ketersediaan unit dapat
+                berubah — hubungi marketing untuk info terbaru.
+              </p>
             </div>
           </div>
 

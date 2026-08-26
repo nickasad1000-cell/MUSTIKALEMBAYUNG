@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { Unit, UnitStatus } from "@/lib/units";
-import { formatPrice, STATUS_LABELS } from "@/lib/units";
+import { priceLabel, STATUS_LABELS } from "@/lib/units";
 
 const STATUS_STYLES: Record<UnitStatus, string> = {
   available: "bg-emerald-100 text-emerald-800",
@@ -11,23 +12,14 @@ const STATUS_STYLES: Record<UnitStatus, string> = {
   "coming-soon": "bg-amber-100 text-amber-800",
 };
 
-const PRICE_OPTIONS = [
-  { label: "Semua Harga", value: Infinity },
-  { label: "≤ Rp 400 jt", value: 400_000_000 },
-  { label: "≤ Rp 600 jt", value: 600_000_000 },
-  { label: "≤ Rp 800 jt", value: 800_000_000 },
-];
-
 interface Filters {
   status: "all" | UnitStatus;
   bedrooms: "all" | "2" | "3";
-  maxPrice: number;
 }
 
 const INITIAL_FILTERS: Filters = {
   status: "all",
   bedrooms: "all",
-  maxPrice: Infinity,
 };
 
 export function UnitCatalog({ units }: { units: Unit[] }) {
@@ -43,16 +35,13 @@ export function UnitCatalog({ units }: { units: Unit[] }) {
           unit.bedrooms !== Number(filters.bedrooms)
         )
           return false;
-        if (unit.price > filters.maxPrice) return false;
         return true;
       }),
     [units, filters]
   );
 
   const isFiltered =
-    filters.status !== "all" ||
-    filters.bedrooms !== "all" ||
-    filters.maxPrice !== Infinity;
+    filters.status !== "all" || filters.bedrooms !== "all";
 
   return (
     <div>
@@ -82,17 +71,6 @@ export function UnitCatalog({ units }: { units: Unit[] }) {
             { label: "3 KT", value: "3" },
           ]}
         />
-        <FilterSelect
-          label="Harga Maks."
-          value={String(filters.maxPrice)}
-          onChange={(value) =>
-            setFilters((f) => ({ ...f, maxPrice: Number(value) }))
-          }
-          options={PRICE_OPTIONS.map((opt) => ({
-            label: opt.label,
-            value: String(opt.value),
-          }))}
-        />
         {isFiltered && (
           <button
             onClick={() => setFilters(INITIAL_FILTERS)}
@@ -120,9 +98,19 @@ export function UnitCatalog({ units }: { units: Unit[] }) {
               >
                 {STATUS_LABELS[unit.status]}
               </span>
-              <span className="flex h-full items-center justify-center text-sm text-emerald-900/50">
-                Foto {unit.name} — segera
-              </span>
+              {unit.image ? (
+                <Image
+                  src={unit.image}
+                  alt={unit.name}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                />
+              ) : (
+                <span className="flex h-full items-center justify-center text-sm text-emerald-900/50">
+                  Foto {unit.name} — segera
+                </span>
+              )}
             </div>
             <div className="flex flex-1 flex-col gap-4 p-6">
               <div>
@@ -146,7 +134,7 @@ export function UnitCatalog({ units }: { units: Unit[] }) {
               </ul>
               <div className="mt-auto flex items-center justify-between border-t border-black/5 pt-4">
                 <p className="font-semibold text-emerald-900">
-                  {formatPrice(unit.price)}
+                  {priceLabel(unit)}
                 </p>
                 <Link
                   href={`/units/${unit.slug}`}

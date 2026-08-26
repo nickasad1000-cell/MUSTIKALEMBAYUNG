@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mustika Lembayung — Katalog Perumahan",
+  title: "Mustika Lembayung Sumbersuko — Rumah Siap Huni Tanpa Renovasi | Lumajang",
   description:
-    "Katalog lengkap Perumahan Mustika Lembayung. Temukan hunian nyaman untuk keluarga Anda: tipe rumah, denah, harga, dan fasilitas.",
+    "Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi berspek komersial — siap huni tanpa renovasi, full granit, canopy carport. Booking hanya Rp100 ribu. Ready 20 unit.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

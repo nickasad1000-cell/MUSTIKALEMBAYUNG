@@ -46,7 +46,7 @@ npm run lint
 ## Deploy ke Vercel
 
 1. Push repo ini ke GitHub (`git push`).
-2. Buka [vercel.com/new](https://vercel.com/new) → **Import** repo `TlTANPRO/MUSTIKALEMBAYUNG`.
+2. Buka [vercel.com/new](https://vercel.com/new) → **Import** repo `nickasad1000-cell/MUSTIKALEMBAYUNG`.
 3. Framework preset: **Next.js** (terdeteksi otomatis). Klik **Deploy**.
 4. Setelah deploy pertama, buka **Settings → Environment Variables** dan tambahkan
    variabel Supabase dari tabel di atas → **Redeploy**.
@@ -81,7 +81,8 @@ supabase/schema.sql          # Skema database (jalankan sekali di SQL Editor)
 
 - [x] Fase 0 — Setup repo, stack, scaffold
 - [x] Fase 4a — Katalog + filter, detail unit, form lead + Supabase, galeri & lokasi, UI kit shadcn
-- [ ] Konten asli: foto rumah/taman, denah, harga final, nomor WA, koordinat peta
+- [x] Konten asli: foto rumah, denah, nomor WA, koordinat peta (Sumbersuko, Lumajang)
+- [ ] Harga final per unit (sementara: "Hubungi untuk harga")
 - [ ] Halaman tambahan: fasilitas, tentang, FAQ, blog
 - [ ] Fase 5 — SEO teknis lanjutan (sitemap, schema.org), aksesibilitas audit
 - [ ] Dashboard admin leads (opsional, via Supabase Studio dulu cukup)
