@@ -46,7 +46,7 @@ export function Header() {
               router.push("/");
             }
           }}
-          className="flex items-center gap-3"
+          className="flex min-h-11 items-center gap-3"
           aria-label="Mustika Lembayung — kembali ke atas"
         >
           <Image

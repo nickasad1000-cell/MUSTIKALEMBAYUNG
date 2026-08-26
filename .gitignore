@@ -44,3 +44,6 @@ next-env.d.ts
 supabase/.temp/
 .vercel
 .env*
+
+ml-assets-raw/
+ml-assets-4k/

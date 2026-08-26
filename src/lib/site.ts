@@ -28,10 +28,11 @@ export interface GalleryItem {
 }
 
 export const galleryItems: GalleryItem[] = [
-  { src: "/assets/teras-carport.jpg", caption: "Teras & Carport Tipe 36" },
-  { src: "/assets/ruang-tamu.jpg", caption: "Ruang Tamu & Dapur" },
-  { src: "/assets/kamar-tidur.jpg", caption: "Kamar Tidur" },
-  { src: "/assets/kamar-mandi.jpg", caption: "Kamar Mandi" },
+  { src: "/assets/teras-carport.webp", caption: "Teras & Carport Tipe 36" },
+  { src: "/assets/ruang-tamu.webp", caption: "Ruang Tamu & Dapur" },
+  { src: "/assets/kamar-tidur.webp", caption: "Kamar Tidur" },
+  { src: "/assets/kamar-tidur-2.webp", caption: "Kamar Tidur — Tampak Lain" },
+  { src: "/assets/kamar-mandi.webp", caption: "Kamar Mandi" },
   { src: "/assets/tampak-depan.jpg", caption: "Tampak Depan Rumah" },
   { src: "/assets/denah-tipe-36.png", caption: "Denah Tipe 36" },
 ];
@@ -44,19 +45,19 @@ export interface DocItem {
 
 export const docItems: DocItem[] = [
   {
-    src: "/assets/daftar-harga.png",
+    src: "/assets/daftar-harga.webp",
     title: "Daftar Harga per Blok",
     description:
       "Harga tipe 36/60 blok A–E, biaya peningkatan mutu kualitas, dan blok hook.",
   },
   {
-    src: "/assets/siteplan.png",
+    src: "/assets/siteplan.webp",
     title: "Siteplan Lokasi",
     description:
       "Denah blok A–E, lebar jalan ROW 6–7 m, pos satpam, dan akses Jalan Kabupaten.",
   },
   {
-    src: "/assets/ketentuan-kpr.png",
+    src: "/assets/ketentuan-kpr.webp",
     title: "Simulasi & Ketentuan KPR",
     description:
       "DP, plafond, simulasi angsuran 10/15/20 tahun, ketentuan & persyaratan berkas.",

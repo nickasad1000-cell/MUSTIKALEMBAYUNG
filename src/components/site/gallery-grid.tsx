@@ -12,7 +12,10 @@ export function GalleryGrid() {
     <>
       <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
         {galleryItems.map((item, i) => (
-          <figure key={item.caption}>
+          <figure
+            key={item.caption}
+            className={i === galleryItems.length - 1 ? "max-md:col-span-2" : ""}
+          >
             <button
               onClick={() => setIndex(i)}
               aria-label={`Perbesar foto ${item.caption}`}
