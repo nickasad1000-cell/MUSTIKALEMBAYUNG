@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
+  getSellableUnits,
   getPricelistUnit,
-  getPricelistUnits,
+  isPresaleUnit,
 } from "@/lib/pricelist";
 import { waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
@@ -15,7 +16,7 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  return getPricelistUnits().map((u) => ({ kode: u.kode.toLowerCase() }));
+  return getSellableUnits().map((u) => ({ kode: u.kode.toLowerCase() }));
 }
 
 function rupiah(n: number): string {
@@ -78,7 +79,7 @@ const PHOTOS = [
 export default async function UnitDetailPage({ params }: PageProps) {
   const { kode } = await params;
   const u = getPricelistUnit(kode);
-  if (!u) notFound();
+  if (!u || isPresaleUnit(kode)) notFound();
 
   const sold = u.status === "terjual";
 

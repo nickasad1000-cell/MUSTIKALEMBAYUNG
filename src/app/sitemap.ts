@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getPricelistUnits } from "@/lib/pricelist";
+import { getSellableUnits } from "@/lib/pricelist";
 
 const BASE = "https://mustikalembayung.vercel.app";
 
@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    ...getPricelistUnits().map((u) => ({
+    ...getSellableUnits().map((u) => ({
       url: `${BASE}/unit/${u.kode.toLowerCase()}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,

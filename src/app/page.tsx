@@ -10,7 +10,7 @@ import { DocGrid } from "@/components/site/doc-grid";
 import { SmoothLink } from "@/components/site/smooth-link";
 import { UnitCatalog } from "@/components/catalog/unit-catalog";
 import { PricelistTable } from "@/components/site/pricelist-table";
-import { pricelistCounts, getPricelistUnits } from "@/lib/pricelist";
+import { pricelistCounts, getSellableUnits } from "@/lib/pricelist";
 import { LeadForm } from "@/components/forms/lead-form";
 import { InstallmentCalculator } from "@/components/site/installment-calculator";
 import { FloatingWa } from "@/components/site/floating-wa";
@@ -204,7 +204,7 @@ export default function Home() {
         </section>
 
         {/* Pricelist per unit */}
-        <PricelistTable units={getPricelistUnits()} />
+        <PricelistTable units={getSellableUnits()} />
 
         {/* Harga & Siteplan */}
         {/* Harga & Siteplan */}

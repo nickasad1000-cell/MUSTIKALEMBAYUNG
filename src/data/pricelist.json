@@ -531,6 +531,33 @@
     "flag": "terlihat hanya di siteplan; nilai belum ada"
   },
   {
+    "kode": "E4",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": null,
+    "mutuKualitas": null,
+    "hargaDasar": 166000000,
+    "flag": "pra-penjualan; nilai belum ada di dokumen"
+  },
+  {
+    "kode": "E5",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": null,
+    "mutuKualitas": null,
+    "hargaDasar": 166000000,
+    "flag": "pra-penjualan; nilai belum ada di dokumen"
+  },
+  {
+    "kode": "E6",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": null,
+    "mutuKualitas": null,
+    "hargaDasar": 166000000,
+    "flag": "pra-penjualan; nilai belum ada di dokumen"
+  },
+  {
     "kode": "E7",
     "blok": "E",
     "tipe": "36",
@@ -547,6 +574,15 @@
     "mutuKualitas": null,
     "hargaDasar": 166000000,
     "flag": "terlihat hanya di siteplan; nilai belum ada"
+  },
+  {
+    "kode": "E9",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": null,
+    "mutuKualitas": null,
+    "hargaDasar": 166000000,
+    "flag": "pra-penjualan; nilai belum ada di dokumen"
   },
   {
     "kode": "E10",

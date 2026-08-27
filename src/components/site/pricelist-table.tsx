@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { PricelistUnit } from "@/lib/pricelist";
+import { waLink } from "@/lib/site";
 
 const BLOKS = ["A", "B", "C", "D", "E"] as const;
 
@@ -31,12 +32,27 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
           Harga per Unit
         </p>
         <h2 className="mt-5 max-w-xl font-heading text-3xl font-semibold tracking-tight text-navy-950 sm:text-4xl">
-          Daftar harga tiap unit — transparan sampai ke nomor blok
+          Daftar harga tiap unit
         </h2>
         <p className="mt-3 max-w-xl text-base leading-relaxed text-zinc-600">
           Harga rumah Rp166 jt + peningkatan mutu kualitas per unit sebagai uang muka.
           Klik baris untuk melihat detail lengkap setiap unit.
         </p>
+
+        <div className="mt-8 flex flex-col gap-3 rounded-2xl border border-gold-500/40 bg-gold-400/10 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm leading-relaxed text-navy-900">
+            <strong>Blok E1–E9</strong> belum dibuka penjualan — informasi
+            lengkap menyusul.
+          </p>
+          <a
+            href={waLink("info pembukaan penjualan Blok E")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-navy-950 px-5 text-sm font-medium text-white transition duration-300 ease-brand hover:bg-navy-800"
+          >
+            Langsung Hubungi Marketing
+          </a>
+        </div>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <div className="inline-flex flex-wrap gap-1 rounded-full bg-white p-1 shadow-sm ring-1 ring-navy-950/10" role="group" aria-label="Filter blok">
