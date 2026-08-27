@@ -11,6 +11,7 @@ import { pricingStats, site, waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { UnitGallery } from "@/components/site/unit-gallery";
+import { NavigateLink } from "@/components/site/navigate-link";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -20,14 +21,61 @@ export function generateStaticParams() {
   return getAllUnits().map((unit) => ({ slug: unit.slug }));
 }
 
+const breadcrumbLd = (unitName: string, slug: string) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Beranda",
+      item: "https://mustikalembayung.vercel.app/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Katalog Unit",
+      item: "https://mustikalembayung.vercel.app/#katalog",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: unitName,
+      item: `https://mustikalembayung.vercel.app/units/${slug}`,
+    },
+  ],
+});
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const unit = getUnitBySlug(slug);
   if (!unit) return { title: "Unit tidak ditemukan" };
 
+  const title = `${unit.name} ${unit.buildingArea}/${unit.landArea} m² — Rumah Subsidi Siap Huni Lumajang`;
+  const description = `Rumah ${unit.buildingArea}/${unit.landArea} m², ${unit.bedrooms} kamar tidur, ${unit.bathrooms} kamar mandi. Siap huni tanpa renovasi di ${site.address}. ${site.promo}.`;
+
   return {
-    title: `${unit.name} — ${site.name}`,
-    description: `Rumah ${unit.buildingArea}/${unit.landArea} m², ${unit.bedrooms} kamar tidur, ${unit.bathrooms} kamar mandi. Siap huni tanpa renovasi di ${site.address}. ${site.promo}.`,
+    title,
+    description,
+    alternates: { canonical: `/units/${unit.slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/units/${unit.slug}`,
+      siteName: `${site.name} Sumbersuko`,
+      locale: "id_ID",
+      type: "website",
+      images: [
+        { url: "/assets/og-image.jpg", width: 1200, height: 630 },
+        ...(unit.image ? [{ url: unit.image }] : []),
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: `Rumah subsidi siap huni ${unit.buildingArea}/${unit.landArea} m² di Lumajang. ${site.promo}.`,
+      images: ["/assets/og-image.jpg"],
+    },
   };
 }
 
@@ -56,6 +104,12 @@ export default async function UnitDetailPage({ params }: PageProps) {
 
   return (
     <div className="flex flex-col flex-1 bg-white font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbLd(unit.name, unit.slug)),
+        }}
+      />
       <Header />
 
       <main className="flex-1">
@@ -66,12 +120,12 @@ export default async function UnitDetailPage({ params }: PageProps) {
               Beranda
             </Link>
             <span aria-hidden> / </span>
-            <Link
-              href="/"
+            <NavigateLink
+              target="katalog"
               className="transition-colors duration-300 hover:text-navy-800"
             >
               Katalog Unit
-            </Link>
+            </NavigateLink>
             <span aria-hidden> / </span>
             <span className="font-medium text-navy-950">{unit.name}</span>
           </nav>
@@ -122,12 +176,12 @@ export default async function UnitDetailPage({ params }: PageProps) {
                 >
                   Tanya Unit Ini via WhatsApp
                 </a>
-                <Link
-                  href="/"
+                <NavigateLink
+                  target="katalog"
                   className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"
                 >
                   ← Unit Lainnya
-                </Link>
+                </NavigateLink>
               </div>
 
               {unit.status === "coming-soon" && (
@@ -138,7 +192,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
               )}
               <p className="text-xs leading-relaxed text-zinc-400">
                 *Syarat dan ketentuan berlaku. Blok hook +Rp5 jt, selisih tanah
-                +Rp1 jt/m², carport/taman +Rp500 rb/m — detail lengkap di
+                +Rp1 jt/m², carport/taman +Rp500 rb/m² — detail lengkap di
                 bagian Harga & Siteplan. Hubungi marketing untuk info terbaru.
               </p>
             </div>

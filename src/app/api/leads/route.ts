@@ -9,9 +9,31 @@ const leadSchema = z.object({
   email: z.string().trim().email().max(150).optional(),
   unitSlug: z.string().trim().max(100).optional(),
   message: z.string().trim().max(1000).optional(),
+  /** Honeypot anti-bot: field tersembunyi, harus kosong. */
+  website: z.string().optional(),
 });
 
+/** Rate limit sederhana per-IP (best-effort; state reset saat instance cold-start). */
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const hits = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const prev = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (prev.length >= RATE_LIMIT) {
+    hits.set(ip, prev);
+    return true;
+  }
+  prev.push(now);
+  hits.set(ip, prev);
+  return false;
+}
+
 export async function POST(request: Request) {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+
   let body: unknown;
   try {
     body = await request.json();
@@ -26,7 +48,19 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     return NextResponse.json(
       { ok: false, reason: "VALIDATION_ERROR" },
-      { status: 200 }
+      { status: 400 }
+    );
+  }
+
+  // Honeypot terisi → bot. Balas sukses palsu agar bot tidak mencoba lagi.
+  if (parsed.data.website) {
+    return NextResponse.json({ ok: true });
+  }
+
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { ok: false, reason: "RATE_LIMITED" },
+      { status: 429 }
     );
   }
 
@@ -34,7 +68,7 @@ export async function POST(request: Request) {
   if (parsed.data.unitSlug && !getUnitBySlug(parsed.data.unitSlug)) {
     return NextResponse.json(
       { ok: false, reason: "VALIDATION_ERROR" },
-      { status: 200 }
+      { status: 400 }
     );
   }
 
@@ -57,11 +91,8 @@ export async function POST(request: Request) {
     });
 
   if (error) {
-    console.error("[api/leads] Supabase insert error:", error.message);
-    return NextResponse.json(
-      { ok: false, reason: "DB_ERROR" },
-      { status: 500 }
-    );
+    console.error("[api/leads] Database insert error:", error.message);
+    return NextResponse.json({ ok: false, reason: "DB_ERROR" }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true });

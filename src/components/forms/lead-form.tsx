@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { Unit } from "@/lib/units";
+import { priceShort } from "@/lib/units";
 
 type FormStatus = "idle" | "loading" | "success" | "error" | "not-configured";
 
@@ -27,6 +28,7 @@ export function LeadForm({ units }: { units: Unit[] }) {
           email: String(data.get("email") ?? "") || undefined,
           unitSlug: String(data.get("unitSlug") ?? "") || undefined,
           message: String(data.get("message") ?? "") || undefined,
+          website: String(data.get("website") ?? "") || undefined,
         }),
       });
       const json = await res.json();
@@ -42,9 +44,11 @@ export function LeadForm({ units }: { units: Unit[] }) {
       }
       setStatus("error");
       setErrorMessage(
-        json.reason === "VALIDATION_ERROR"
-          ? "Periksa kembali isian form Anda."
-          : "Terjadi kesalahan. Silakan coba lagi."
+        json.reason === "RATE_LIMITED"
+          ? "Terlalu banyak percobaan. Tunggu beberapa menit atau hubungi kami via WhatsApp."
+          : json.reason === "VALIDATION_ERROR"
+            ? "Periksa kembali isian form Anda."
+            : "Terjadi kesalahan. Silakan coba lagi."
       );
     } catch {
       setStatus("error");
@@ -158,7 +162,7 @@ export function LeadForm({ units }: { units: Unit[] }) {
                   {units.map((unit) => (
                     <option key={unit.slug} value={unit.slug}>
                       {unit.name}
-                      {unit.price ? ` — ${formatPriceShort(unit.price)}` : ""}
+                      {unit.price ? ` — ${priceShort(unit.price)}` : ""}
                     </option>
                   ))}
                 </select>
@@ -182,10 +186,22 @@ export function LeadForm({ units }: { units: Unit[] }) {
                 />
               </div>
 
+              {/* Honeypot anti-bot — tersembunyi dari manusia */}
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="lead-website">Website</label>
+                <input
+                  id="lead-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               {status === "not-configured" && (
                 <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">
-                  Database Supabase belum dikonfigurasi. Data tidak tersimpan —
-                  hubungi developer atau sementara gunakan tombol WhatsApp.
+                  Layanan penerimaan data sedang tidak aktif. Silakan langsung
+                  chat WhatsApp kami di 0813-3337-2016.
                 </p>
               )}
               {status === "error" && (
@@ -207,10 +223,4 @@ export function LeadForm({ units }: { units: Unit[] }) {
       </div>
     </div>
   );
-}
-
-function formatPriceShort(price: number): string {
-  if (price >= 1_000_000_000)
-    return `Rp ${(price / 1_000_000_000).toFixed(2).replace(".", ",")} M`;
-  return `Rp ${Math.round(price / 1_000_000)} jt`;
 }

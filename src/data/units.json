@@ -9,7 +9,7 @@
     "floors": 1,
     "price": 166000000,
     "image": "/assets/teras-carport.webp",
-    "denah": "/assets/denah-tipe-36.png",
+    "denah": "/assets/denah-tipe-36.webp",
     "status": "available",
     "carport": 1,
     "features": [

@@ -40,11 +40,54 @@ function Eyebrow({ children }: { children: string }) {
   );
 }
 
+const FAQ_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Berapa biaya booking rumah di Mustika Lembayung?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Booking hanya Rp100 ribu — free DP, free biaya balik nama, dan bisa langsung terima kunci karena semua unit siap huni tanpa renovasi.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Berapa harga dan angsuran per bulan rumah Tipe 36?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Harga unit tipe 36/60 mulai Rp166 jt dengan angsuran flat sekitar Rp1,07 jt per bulan (tenor 20 tahun). Simulasi lengkap 10/15/20 tahun tersedia di website.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Apakah rumahnya benar-benar siap huni tanpa renovasi?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ya. Setiap unit sudah termasuk canopy carport, pagar pembatas & roster depan, meja dapur set, kompor tanam, lantai granit, kusen aluminium, dan atap spandek.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Di mana lokasi Perumahan Mustika Lembayung?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sumbersuko, Lumajang, Jawa Timur — dekat akses jalan kabupaten, sekolah, pasar, dan pusat keramaian. Titik lokasi tersedia di Google Maps pada bagian Lokasi.",
+      },
+    },
+  ],
+};
+
 export default function Home() {
   const units = getAllUnits();
 
   return (
     <div className="flex flex-col flex-1 bg-white font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_LD) }}
+      />
       <ScrollManager />
       <Header />
 
@@ -55,7 +98,7 @@ export default function Home() {
             src="/assets/hero.webp"
             alt=""
             fill
-            priority
+            preload
             fetchPriority="high"
             quality={60}
             sizes="100vw"
@@ -76,9 +119,9 @@ export default function Home() {
               Sumbersuko
             </h1>
             <p className="max-w-xl text-lg leading-relaxed text-white/90">
-              Rumah subsidi berspek komersial — full granit, canopy carport,
-              kompor tanam. Booking hanya <strong>Rp100 ribu</strong>, bisa
-              langsung terima kunci. Ready {site.readyUnits} unit.
+              Rumah subsidi dengan spek komersial — full granit, canopy
+              carport, kompor tanam. Booking hanya <strong>Rp100 ribu</strong>,
+              bisa langsung terima kunci. Ready {site.readyUnits} unit.
             </p>
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
               <SmoothLink

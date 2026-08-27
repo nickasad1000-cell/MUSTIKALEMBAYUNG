@@ -3,7 +3,7 @@ export const site = {
   developer: "PT. Lembayung Wanantara Padha",
   tagline: "Siap Huni · Tanpa Perlu Renovasi",
   description:
-    "Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi berspek komersial — siap huni tanpa renovasi, full granit, canopy carport, kompor tanam. Booking hanya Rp100 ribu.",
+    "Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi dengan spek komersial — siap huni tanpa renovasi, full granit, canopy carport, kompor tanam. Booking hanya Rp100 ribu.",
   whatsapp: "6281333372016",
   whatsappDisplay: "0813-3337-2016",
   address: "Sumbersuko, Lumajang, Jawa Timur",
@@ -33,8 +33,8 @@ export const galleryItems: GalleryItem[] = [
   { src: "/assets/kamar-tidur.webp", caption: "Kamar Tidur" },
   { src: "/assets/kamar-tidur-2.webp", caption: "Kamar Tidur — Tampak Lain" },
   { src: "/assets/kamar-mandi.webp", caption: "Kamar Mandi" },
-  { src: "/assets/tampak-depan.jpg", caption: "Tampak Depan Rumah" },
-  { src: "/assets/denah-tipe-36.png", caption: "Denah Tipe 36" },
+  { src: "/assets/tampak-depan.webp", caption: "Tampak Depan Rumah" },
+  { src: "/assets/denah-tipe-36.webp", caption: "Denah Tipe 36" },
 ];
 
 export interface DocItem {

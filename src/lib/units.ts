@@ -36,6 +36,13 @@ export function formatPrice(price: number): string {
   }).format(price);
 }
 
+/** Format ringkas gaya "Rp166 jt" / "Rp1,25 M" — konsisten dengan pricingStats. */
+export function priceShort(price: number): string {
+  if (price >= 1_000_000_000)
+    return `Rp${(price / 1_000_000_000).toFixed(2).replace(".", ",")} M`;
+  return `Rp${Math.round(price / 1_000_000)} jt`;
+}
+
 export function priceLabel(unit: Unit): string {
   return unit.price ? formatPrice(unit.price) : "Hubungi untuk harga";
 }
