@@ -66,14 +66,16 @@ export function Header() {
           className="flex min-h-11 items-center gap-3"
           aria-label="Mustika Lembayung — kembali ke atas"
         >
-          <Image
-            src="/assets/logo-icon-dark.png"
-            alt={`Logo ${site.developer}`}
-            width={32}
-            height={29}
-            preload
-            className="h-8 w-auto"
-          />
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy-950 ring-1 ring-navy-950/10">
+            <Image
+              src="/assets/logo-icon-dark.png"
+              alt={`Logo ${site.developer}`}
+              width={32}
+              height={29}
+              preload
+              className="h-7 w-auto"
+            />
+          </span>
           <span className="font-heading text-lg font-semibold tracking-tight text-navy-950">
             {site.name}
           </span>
