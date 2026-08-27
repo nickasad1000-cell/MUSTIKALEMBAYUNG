@@ -166,7 +166,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
                 {sold ? (
                   <a
                     href={waLink(
-                      `Halo, unit ${u.kode} (Blok ${u.blok}) sudah terjual. Mohon info unit yang masih tersedia di Mustika Lembayung.`
+                      `info unit lain yang masih tersedia selain ${u.kode}`
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -177,7 +177,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
                 ) : (
                   <a
                     href={waLink(
-                      `Halo, saya tertarik dengan unit ${u.kode} (Blok ${u.blok}) di Mustika Lembayung Sumbersuko. Boleh minta info lengkap?`
+                      `unit ${u.kode} (Blok ${u.blok}, type ${u.tipe}). Boleh minta info lengkap?`
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
