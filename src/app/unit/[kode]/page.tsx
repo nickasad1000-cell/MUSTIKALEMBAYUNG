@@ -166,7 +166,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
                 {sold ? (
                   <a
                     href={waLink(
-                      `info unit lain yang masih tersedia selain ${u.kode}`
+                      `info unit lain yang masih tersedia di Mustika Lembayung`
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -176,9 +176,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   </a>
                 ) : (
                   <a
-                    href={waLink(
-                      `unit ${u.kode} (Blok ${u.blok}, type ${u.tipe}). Boleh minta info lengkap?`
-                    )}
+                    href={waLink(`unit ${u.kode} (Blok ${u.blok}, type ${u.tipe})`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-12 flex-1 items-center justify-center rounded-full bg-navy-950 px-6 font-medium text-white transition duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98]"
