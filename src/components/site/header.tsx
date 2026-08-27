@@ -9,6 +9,7 @@ import { site, waLink } from "@/lib/site";
 const NAV = [
   { id: "keunggulan", label: "Keunggulan" },
   { id: "katalog", label: "Katalog Unit" },
+  { id: "pricelist", label: "Pricelist" },
   { id: "harga", label: "Harga & Siteplan" },
   { id: "galeri", label: "Galeri" },
   { id: "lokasi", label: "Lokasi" },

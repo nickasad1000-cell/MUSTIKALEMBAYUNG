@@ -9,6 +9,8 @@ import { GalleryGrid } from "@/components/site/gallery-grid";
 import { DocGrid } from "@/components/site/doc-grid";
 import { SmoothLink } from "@/components/site/smooth-link";
 import { UnitCatalog } from "@/components/catalog/unit-catalog";
+import { PricelistTable } from "@/components/site/pricelist-table";
+import { pricelistCounts, getPricelistUnits } from "@/lib/pricelist";
 import { LeadForm } from "@/components/forms/lead-form";
 import { InstallmentCalculator } from "@/components/site/installment-calculator";
 import { FloatingWa } from "@/components/site/floating-wa";
@@ -121,7 +123,11 @@ export default function Home() {
             <p className="max-w-xl text-lg leading-relaxed text-white/90">
               Rumah subsidi dengan spek komersial — full granit, canopy
               carport, kompor tanam. Booking hanya <strong>Rp100 ribu</strong>,
-              bisa langsung terima kunci. Ready {site.readyUnits} unit.
+              bisa langsung terima kunci.
+            </p>
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-semibold backdrop-blur tabular-nums">
+              <span aria-hidden className="h-2 w-2 rounded-full bg-emerald-400" />
+              Ready {pricelistCounts().ready} dari {pricelistCounts().total} unit
             </p>
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
               <SmoothLink
@@ -197,6 +203,10 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Pricelist per unit */}
+        <PricelistTable units={getPricelistUnits()} />
+
+        {/* Harga & Siteplan */}
         {/* Harga & Siteplan */}
         <section id="harga" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
           <div className="mx-auto w-full max-w-6xl px-6">

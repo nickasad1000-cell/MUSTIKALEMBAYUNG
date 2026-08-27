@@ -1,0 +1,634 @@
+[
+  {
+    "kode": "A1",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 70,
+    "mutuKualitas": 22125000,
+    "hargaDasar": 166000000,
+    "status": "tersedia",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "A2",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 67,
+    "mutuKualitas": 12370000,
+    "hargaDasar": 166000000,
+    "status": "tersedia",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "A3",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 66,
+    "mutuKualitas": 10510000,
+    "hargaDasar": 166000000,
+    "status": "tersedia",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "A4",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 66,
+    "mutuKualitas": 11386000,
+    "hargaDasar": 166000000,
+    "status": "tersedia",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "A5",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 66,
+    "mutuKualitas": 11197000,
+    "hargaDasar": 166000000,
+    "status": "tersedia",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "A6",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 65,
+    "mutuKualitas": 11103000,
+    "hargaDasar": 166000000,
+    "status": "tersedia",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "A7",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 64,
+    "mutuKualitas": 9969000,
+    "hargaDasar": 166000000,
+    "status": "tersedia",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "A8",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 64,
+    "mutuKualitas": 7921000,
+    "hargaDasar": 166000000,
+    "status": "tersedia",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "A9",
+    "blok": "A",
+    "tipe": "36",
+    "luasTanah": 64,
+    "mutuKualitas": 8364000,
+    "hargaDasar": 166000000,
+    "status": "terjual",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "B1",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual",
+    "flag": "unit tak tertulis di dokumen; nilai default"
+  },
+  {
+    "kode": "B2",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B3",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "B4",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "B5",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B6",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "B7",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "B8",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B9",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "B10",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 5000000,
+    "hargaDasar": 166000000,
+    "flag": "hook/star OCR"
+  },
+  {
+    "kode": "B11",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 5000000,
+    "hargaDasar": 166000000,
+    "flag": "hook/star OCR"
+  },
+  {
+    "kode": "B12",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B13",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B14",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B15",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B16",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B17",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "B18",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "terjual"
+  },
+  {
+    "kode": "B19",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "B20",
+    "blok": "B",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 5000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C1",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 5000000,
+    "hargaDasar": 166000000,
+    "flag": "hook/star OCR"
+  },
+  {
+    "kode": "C2",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C3",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C4",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C5",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C6",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C7",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C8",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C9",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C11",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 5000000,
+    "hargaDasar": 166000000,
+    "flag": "hook/star OCR"
+  },
+  {
+    "kode": "C12",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C13",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 60,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C14",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 61,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C15",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 62,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C16",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 63,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C17",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 64,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C18",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 65,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C19",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 66,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C20",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 66,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C21",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 67,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "C22",
+    "blok": "C",
+    "tipe": "36",
+    "luasTanah": 68,
+    "mutuKualitas": 15000000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "D1",
+    "blok": "D",
+    "tipe": "36",
+    "luasTanah": 71,
+    "mutuKualitas": 16920000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "D2",
+    "blok": "D",
+    "tipe": "36",
+    "luasTanah": 71,
+    "mutuKualitas": 16560000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "D3",
+    "blok": "D",
+    "tipe": "36",
+    "luasTanah": 70,
+    "mutuKualitas": 16200000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "D4",
+    "blok": "D",
+    "tipe": "36",
+    "luasTanah": 70,
+    "mutuKualitas": 15930000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "D5",
+    "blok": "D",
+    "tipe": "36",
+    "luasTanah": 71,
+    "mutuKualitas": 15570000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "D6",
+    "blok": "D",
+    "tipe": "36",
+    "luasTanah": 70,
+    "mutuKualitas": 15210000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "D7",
+    "blok": "D",
+    "tipe": "36",
+    "luasTanah": 70,
+    "mutuKualitas": 14940000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "D8",
+    "blok": "D",
+    "tipe": "36",
+    "luasTanah": 74,
+    "mutuKualitas": 14940000,
+    "hargaDasar": 166000000
+  },
+  {
+    "kode": "E1",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 68,
+    "mutuKualitas": 29625000,
+    "hargaDasar": 166000000,
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "E2",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": null,
+    "mutuKualitas": null,
+    "hargaDasar": 166000000,
+    "flag": "terlihat hanya di siteplan; nilai belum ada"
+  },
+  {
+    "kode": "E3",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": null,
+    "mutuKualitas": null,
+    "hargaDasar": 166000000,
+    "flag": "terlihat hanya di siteplan; nilai belum ada"
+  },
+  {
+    "kode": "E7",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": null,
+    "mutuKualitas": null,
+    "hargaDasar": 166000000,
+    "flag": "terlihat hanya di siteplan; nilai belum ada"
+  },
+  {
+    "kode": "E8",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": null,
+    "mutuKualitas": null,
+    "hargaDasar": 166000000,
+    "flag": "terlihat hanya di siteplan; nilai belum ada"
+  },
+  {
+    "kode": "E10",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 74,
+    "mutuKualitas": 12078000,
+    "hargaDasar": 166000000,
+    "status": "terjual",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "E11",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 71,
+    "mutuKualitas": 10746000,
+    "hargaDasar": 166000000,
+    "status": "terjual",
+    "flag": "flag-verify"
+  },
+  {
+    "kode": "E12",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 70,
+    "mutuKualitas": 9405000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "E13",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 70,
+    "mutuKualitas": 8010000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "E14",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 68,
+    "mutuKualitas": 6732000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "E15",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 67,
+    "mutuKualitas": 5400000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "E16",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 66,
+    "mutuKualitas": 4068000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "E17",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 65,
+    "mutuKualitas": 2700000,
+    "hargaDasar": 166000000,
+    "status": "tersedia"
+  },
+  {
+    "kode": "E18",
+    "blok": "E",
+    "tipe": "36",
+    "luasTanah": 64,
+    "mutuKualitas": 5697500,
+    "hargaDasar": 166000000,
+    "flag": "flag-verify"
+  }
+]

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
+import { pricelistCounts } from "@/lib/pricelist";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,8 +21,7 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mustikalembayung.vercel.app"),
   title: "Mustika Lembayung Sumbersuko — Rumah Siap Huni Tanpa Renovasi | Lumajang",
-  description:
-    "Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi dengan spek komersial — siap huni tanpa renovasi, full granit, canopy carport. Booking hanya Rp100 ribu. Ready 20 unit.",
+  description: `Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi dengan spek komersial — siap huni tanpa renovasi, full granit, canopy carport. Booking hanya Rp100 ribu. Ready ${pricelistCounts().ready} unit.`,
   alternates: {
     canonical: "/",
   },

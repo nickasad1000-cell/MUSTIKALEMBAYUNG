@@ -12,7 +12,6 @@ export const site = {
     "https://www.google.com/maps?q=-8.1670075,113.1694113&z=17&output=embed",
   mapsLink: "https://maps.app.goo.gl/KZAXAtritUGe6fkD9",
   promo: "Booking hanya Rp100 ribu — bisa langsung terima kunci",
-  readyUnits: 20,
 } as const;
 
 export function waLink(text?: string): string {
