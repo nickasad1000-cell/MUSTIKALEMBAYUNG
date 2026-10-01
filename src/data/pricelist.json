@@ -67,7 +67,7 @@
     "mutuKualitas": 9969000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "terjual"
   },
   {
     "kode": "A8",
@@ -117,7 +117,7 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "terjual"
   },
   {
     "kode": "B4",
@@ -277,7 +277,7 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "terjual"
   },
   {
     "kode": "B20",
@@ -387,7 +387,7 @@
     "mutuKualitas": 5000000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": null
+    "status": "tersedia"
   },
   {
     "kode": "C11",
@@ -786,6 +786,6 @@
     "mutuKualitas": 5697500,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": null
+    "status": "tersedia"
   }
 ]
