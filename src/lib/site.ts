@@ -65,6 +65,17 @@ export const docItems: DocItem[] = [
 
 export const pricingStats = [
   { value: "Rp166 jt", label: "Harga unit tipe 36/60" },
-  { value: "Rp5,66 jt", label: "DP (tanda jadi + mutu)" },
+  { value: "Rp2,5 jt", label: "Tanda jadi (belum mengurangi harga)" },
   { value: "Rp1,07 jt", label: "Angsuran per bulan · 20 th" },
 ];
+
+/**
+ * Ketentuan yang benar-benar tertulis di pricelist resmi. Jangan menambah
+ * biaya lain (mis. "selisih tanah per m2") tanpa dokumen pendukung.
+ */
+export const pricelistNotes = [
+  "Blok hook/pojok +Rp5 jt.",
+  "Tanda jadi Rp2,5 jt, tidak mengurangi harga rumah.",
+  "Peningkatan mutu kualitas dibayar maksimal 14 hari setelah tanda jadi, sebagai uang muka.",
+  "Harga jual dan angsuran mengikuti keputusan bank.",
+] as const;

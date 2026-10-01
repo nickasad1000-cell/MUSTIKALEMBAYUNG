@@ -4,8 +4,11 @@ import {
   getSellableUnits,
   getPricelistUnit,
   isPresaleUnit,
+  isTerjual,
+  statusLabel,
+  totalUangMuka,
 } from "@/lib/pricelist";
-import { waLink } from "@/lib/site";
+import { pricelistNotes, waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { UnitPhotoGrid } from "@/components/site/unit-photo-grid";
@@ -20,7 +23,7 @@ export function generateStaticParams() {
 }
 
 function rupiah(n: number): string {
-  return `Rp ${new Intl.NumberFormat("id-ID").format(n)}`;
+  return n === 0 ? "Rp0" : `Rp ${new Intl.NumberFormat("id-ID").format(n)}`;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -28,10 +31,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const u = getPricelistUnit(kode);
   if (!u) return { title: "Unit tidak ditemukan" };
 
-  const state = u.status === "terjual" ? "Terjual" : "Tersedia";
+  const state = statusLabel(u.status);
   const title = `Unit ${u.kode} Blok ${u.blok} — Rumah Subsidi Tipe ${u.tipe} Lumajang (${state})`;
   const luas = u.luasTanah !== null ? `${u.luasTanah} m²` : "—";
-  const description = `Unit ${u.kode} Blok ${u.blok}, type ${u.tipe}, tanah ±${luas}. Harga ${rupiah(u.hargaDasar)}${u.mutuKualitas !== null ? ` + peningkatan mutu ${rupiah(u.mutuKualitas)}` : ""}. Status: ${state} — Perumahan Mustika Lembayung Sumbersuko.`;
+  const hook = u.hook ? " Unit hook/pojok (tambahan Rp5 jt)." : "";
+  const description = `Unit ${u.kode} Blok ${u.blok}, type ${u.tipe}, tanah ±${luas}. Harga ${rupiah(u.hargaDasar)}${u.mutuKualitas !== null ? ` + peningkatan mutu ${rupiah(u.mutuKualitas)}` : ""}.${hook} Status: ${state} — Perumahan Mustika Lembayung Sumbersuko.`;
 
   return {
     title,
@@ -81,7 +85,8 @@ export default async function UnitDetailPage({ params }: PageProps) {
   const u = getPricelistUnit(kode);
   if (!u || isPresaleUnit(kode)) notFound();
 
-  const sold = u.status === "terjual";
+  const sold = isTerjual(u);
+  const belumPasti = u.status === null;
 
   return (
     <div className="flex flex-col flex-1 bg-white font-sans">
@@ -101,22 +106,33 @@ export default async function UnitDetailPage({ params }: PageProps) {
 
           <div className="mt-8 grid gap-12 lg:grid-cols-2">
             <div>
-              <div className="flex flex-wrap items-center gap-3">
-                <h1 className="font-heading text-4xl font-semibold tracking-tight text-navy-950 sm:text-5xl">
-                  Unit {u.kode}
-                </h1>
-                {sold ? (
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1.5 text-xs font-bold text-red-600">
-                    <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-red-500" />
-                    Terjual
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">
-                    <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                    Tersedia
-                  </span>
-                )}
-              </div>
+<div className="flex flex-wrap items-center gap-3">
+                  <h1 className="font-heading text-4xl font-semibold tracking-tight text-navy-950 sm:text-5xl">
+                    Unit {u.kode}
+                  </h1>
+                  {u.hook && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-400/25 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-gold-700 ring-1 ring-gold-500/40">
+                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold-600" />
+                      Hook / pojok +Rp5 jt
+                    </span>
+                  )}
+                  {sold ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1.5 text-xs font-bold text-red-600">
+                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                      Terjual
+                    </span>
+                  ) : belumPasti ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-800">
+                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                      Status belum dapat dipastikan — hubungi marketing
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">
+                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                      Tersedia
+                    </span>
+                  )}
+                </div>
               <p className="mt-2 text-lg text-zinc-600 tabular-nums">
                 Blok {u.blok} · Type {u.tipe} ·{" "}
                 {u.luasTanah !== null ? `${u.luasTanah} m² tanah` : "Luas hubungi marketing"} · 2 KT / 1 KM
@@ -135,6 +151,18 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   </dt>
                   <dd className="mt-1 font-heading text-xl font-semibold tabular-nums text-navy-950 sm:text-2xl">
                     {u.mutuKualitas !== null ? rupiah(u.mutuKualitas) : "Hubungi"}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-wide text-zinc-500">
+                    Uang Muka (DP)
+                  </dt>
+                  <dd className="mt-1 font-heading text-xl font-semibold tabular-nums text-navy-950 sm:text-2xl">
+                    {u.mutuKualitas !== null ? rupiah(totalUangMuka(u)) : "Hubungi"}
+                    <span className="text-sm font-normal text-zinc-500">
+                      {" "}
+                      = tanda jadi + mutu{u.hook ? " + hook" : ""}
+                    </span>
                   </dd>
                 </div>
                 <div>
@@ -159,8 +187,8 @@ export default async function UnitDetailPage({ params }: PageProps) {
               </ul>
 
               <p className="mt-4 text-xs leading-relaxed text-zinc-400">
-                *Simulasi berdasarkan pricelist; nilai final angsuran ditentukan bank.
-                Blok hook/pojok +Rp5 jt, selisih tanah +Rp1 jt/m².
+                *Harga, luas tanah, dan peningkatan mutu di halaman ini disalin
+                dari pricelist resmi developer. {pricelistNotes.join(" ")}
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">

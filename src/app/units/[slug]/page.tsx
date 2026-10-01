@@ -7,7 +7,7 @@ import {
   formatPrice,
   STATUS_LABELS,
 } from "@/lib/units";
-import { pricingStats, site, waLink } from "@/lib/site";
+import { pricingStats, pricelistNotes, site, waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { UnitGallery } from "@/components/site/unit-gallery";
@@ -190,10 +190,10 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   via form kontak untuk prioritas booking.
                 </p>
               )}
-              <p className="text-xs leading-relaxed text-zinc-400">
-                *Syarat dan ketentuan berlaku. Blok hook +Rp5 jt, selisih tanah
-                +Rp1 jt/m², carport/taman +Rp500 rb/m² — detail lengkap di
-                bagian Harga & Siteplan. Hubungi marketing untuk info terbaru.
+<p className="text-xs leading-relaxed text-zinc-400">
+                *Harga dasar tidak termasuk peningkatan mutu kualitas per unit;
+                nilai lengkapnya ada di tabel pricelist. {pricelistNotes.join(" ")}
+                Hubungi marketing untuk info terbaru.
               </p>
             </div>
           </div>

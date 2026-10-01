@@ -21,7 +21,7 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mustikalembayung.vercel.app"),
   title: "Mustika Lembayung Sumbersuko — Rumah Siap Huni Tanpa Renovasi | Lumajang",
-  description: `Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi dengan spek komersial — siap huni tanpa renovasi, full granit, canopy carport. Booking hanya Rp100 ribu. Ready ${pricelistCounts().ready} unit.`,
+  description: `Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi dengan spek komersial — siap huni tanpa renovasi, full granit, canopy carport. Booking hanya Rp100 ribu. ${pricelistCounts().tersedia} unit tersedia.`,
   alternates: {
     canonical: "/",
   },

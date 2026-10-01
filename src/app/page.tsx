@@ -127,7 +127,7 @@ export default function Home() {
             </p>
             <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-semibold backdrop-blur tabular-nums">
               <span aria-hidden className="h-2 w-2 rounded-full bg-emerald-400" />
-              Ready {pricelistCounts().ready} dari {pricelistCounts().total} unit
+              {pricelistCounts().tersedia} unit tersedia dari {pricelistCounts().total} unit
             </p>
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
               <SmoothLink

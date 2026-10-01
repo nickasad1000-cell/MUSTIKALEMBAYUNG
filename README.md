@@ -29,7 +29,33 @@ Lint & verifikasi:
 
 ```bash
 npm run lint
+npm test          # integritas harga vs pricelist resmi
+npm run verify    # lint + test + production build
 ```
+
+## Data harga (penting)
+
+Seluruh angka harga, luas tanah, dan penanda hook berasal dari satu dokumen:
+`public/assets/daftar-harga.webp`. Mekanismenya:
+
+| File | Isi | Siapa yang boleh edit |
+|------|-----|----------------------|
+| `scripts/pricelist.mjs` | Transkripsi dokumen (harga, luas, hook) | Hanya kalau dokumennya berubah |
+| `src/data/unit-status.json` | Status operasional per unit (terjual/tersedia) | Setiap kali ada penjualan baru |
+| `src/data/pricelist.json` | **Hasil generate** dari dua file di atas | Jangan diedit manual |
+
+`npm test` membandingkan ulang hasil generate dengan file yang ter-commit,
+sehingga edit manual pada `pricelist.json` akan menggagalkan build. Aturan ini
+dibuat setelah versi lama situs menampilkan 35 unit dengan peningkatan mutu
+Rp15.000.000 padahal dokumennya Rp0.
+
+```bash
+npm run pricelist:show   # ringkasan: berapa unit, berapa hook, berapa terjual
+npm run pricelist        # regenerate src/data/pricelist.json setelah edit sumber
+```
+
+Unit dengan status `null` (belum ada data operasional) ditampilkan sebagai
+"Belum dapat dipastikan", tidak pernah dihitung sebagai tersedia.
 
 ## Setup Supabase
 

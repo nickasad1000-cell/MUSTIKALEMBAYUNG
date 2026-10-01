@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { PricelistUnit } from "@/lib/pricelist";
-import { waLink } from "@/lib/site";
+import { isTerjual, statusLabel } from "@/lib/pricelist";
+import { pricelistNotes, waLink } from "@/lib/site";
 
 const BLOKS = ["A", "B", "C", "D", "E"] as const;
 
@@ -22,7 +23,8 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
     [units, blok]
   );
   const sorted = rows[0]?.blok && rows.length === units.length ? [...rows].sort((a, b) => a.blok.localeCompare(b.blok) || a.kode.localeCompare(b.kode, "id", { numeric: true })) : rows;
-  const terjual = units.filter((u) => u.status === "terjual").length;
+  const terjual = units.filter(isTerjual).length;
+  const belumPasti = units.filter((u) => u.status === null).length;
 
   return (
     <section id="pricelist" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
@@ -37,6 +39,13 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
         <p className="mt-3 max-w-xl text-base leading-relaxed text-zinc-600">
           Harga rumah Rp166 jt + peningkatan mutu kualitas per unit sebagai uang muka.
           Klik baris untuk melihat detail lengkap setiap unit.
+        </p>
+        <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500">
+          Seluruh angka di tabel ini disalin dari pricelist resmi developer
+          (<code className="rounded bg-navy-950/[0.06] px-1 py-0.5 text-xs">daftar-harga.webp</code>)
+          dan diverifikasi dengan <code className="rounded bg-navy-950/[0.06] px-1 py-0.5 text-xs">npm test</code>.
+          Unit hook/pojok ditandai <span className="font-semibold text-navy-800">Hook</span> dan
+          sudah termasuk tambahan Rp5 jt di kolom peningkatan mutu.
         </p>
 
         <div className="mt-8 flex flex-col gap-3 rounded-2xl border border-gold-500/40 bg-gold-400/10 p-5 sm:flex-row sm:items-center sm:justify-between">
@@ -70,11 +79,17 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
               </button>
             ))}
           </div>
-          <p className="inline-flex items-center gap-4 text-sm font-semibold text-zinc-700">
+          <p className="inline-flex flex-wrap items-center gap-4 text-sm font-semibold text-zinc-700">
             <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 ring-1 ring-navy-950/10">
               <span aria-hidden className="h-2 w-2 rounded-full bg-emerald-500" />
-              Ready {units.length - terjual} dari {units.length} unit
+              Tersedia {units.length - terjual - belumPasti} dari {units.length} unit
             </span>
+            {belumPasti > 0 && (
+              <span className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-4 py-2 text-amber-800 ring-1 ring-amber-200">
+                <span aria-hidden className="h-2 w-2 rounded-full bg-amber-500" />
+                {belumPasti} unit statusnya belum dikonfirmasi
+              </span>
+            )}
           </p>
         </div>
 
@@ -85,14 +100,17 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
                 <th scope="col" className="px-5 py-3.5 font-semibold">Unit</th>
                 <th scope="col" className="px-5 py-3.5 font-semibold">Type</th>
                 <th scope="col" className="px-5 py-3.5 font-semibold">Luas Tanah</th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">Peningkatan Mutu</th>
+                <th scope="col" className="px-5 py-3.5 font-semibold">
+                  Peningkatan Mutu
+                </th>
                 <th scope="col" className="px-5 py-3.5 font-semibold">Status</th>
                 <th scope="col" className="px-5 py-3.5 text-right font-semibold">Detail</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-navy-950/5">
               {sorted.map((u) => {
-                const sold = u.status === "terjual";
+                const sold = isTerjual(u);
+                const belumPasti = u.status === null;
                 return (
                   <tr
                     key={u.kode}
@@ -104,7 +122,13 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
                   >
                     <td className="px-5 py-3.5 font-bold tabular-nums text-navy-950">
                       {u.kode}
+                      {u.hook && (
+                        <span className="ml-2 rounded-full bg-gold-400/25 px-2 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wide text-gold-700 ring-1 ring-gold-500/40">
+                          Hook
+                        </span>
+                      )}
                       {sold && <span className="sr-only"> (terjual)</span>}
+                      {belumPasti && <span className="sr-only"> (status belum dipastikan)</span>}
                     </td>
                     <td className="px-5 py-3.5 text-zinc-600">{u.tipe}</td>
                     <td className="px-5 py-3.5 tabular-nums text-zinc-600">
@@ -119,10 +143,15 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
                           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-red-500" />
                           Terjual
                         </span>
+                      ) : belumPasti ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-800">
+                          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                          Belum dipastikan
+                        </span>
                       ) : (
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">
                           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                          Tersedia
+                          {statusLabel(u.status)}
                         </span>
                       )}
                     </td>
@@ -139,8 +168,9 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
         </div>
 
         <p className="mt-4 text-xs leading-relaxed text-zinc-500">
-          Blok Hook/Pojok +Rp5 jt · selisih tanah +Rp1 jt/m² · tanda jadi Rp2,5 jt (tidak mengurangi harga).
-          Angsuran flat mulai Rp1.072.180/bulan (20 tahun)*. Nilai final ditentukan bank.
+          {pricelistNotes.join(" ")} Angsuran mulai Rp1.072.180/bulan (20 tahun)*.
+          Simulasi 10 dan 15 tahun tersedia di bagian Harga &amp; Siteplan. Nilai final
+          angsuran ditentukan bank.
         </p>
       </div>
     </section>
