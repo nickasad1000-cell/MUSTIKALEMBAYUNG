@@ -7,7 +7,9 @@
     "mutuKualitas": 22125000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "A2",
@@ -17,7 +19,9 @@
     "mutuKualitas": 12370000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "A3",
@@ -27,7 +31,9 @@
     "mutuKualitas": 10510000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "A4",
@@ -37,7 +43,9 @@
     "mutuKualitas": 11386000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "A5",
@@ -47,7 +55,9 @@
     "mutuKualitas": 11197000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "A6",
@@ -57,7 +67,9 @@
     "mutuKualitas": 11103000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "A7",
@@ -67,7 +79,9 @@
     "mutuKualitas": 9969000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "A8",
@@ -77,7 +91,9 @@
     "mutuKualitas": 7921000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "A9",
@@ -87,7 +103,9 @@
     "mutuKualitas": 8364000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "terjual",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B1",
@@ -97,7 +115,9 @@
     "mutuKualitas": 15000000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "terjual",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B2",
@@ -107,7 +127,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "terjual",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B3",
@@ -117,7 +139,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B4",
@@ -127,7 +151,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B5",
@@ -137,7 +163,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B6",
@@ -147,7 +175,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B7",
@@ -157,7 +187,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B8",
@@ -167,7 +199,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B9",
@@ -177,7 +211,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B10",
@@ -187,7 +223,9 @@
     "mutuKualitas": 5000000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B11",
@@ -197,7 +235,9 @@
     "mutuKualitas": 15000000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B12",
@@ -207,7 +247,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "terjual",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B13",
@@ -217,7 +259,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B14",
@@ -227,7 +271,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B15",
@@ -237,7 +283,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "terjual",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B16",
@@ -247,7 +295,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "terjual",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B17",
@@ -257,7 +307,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B18",
@@ -267,7 +319,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B19",
@@ -277,7 +331,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "B20",
@@ -287,7 +343,9 @@
     "mutuKualitas": 5000000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C1",
@@ -297,7 +355,9 @@
     "mutuKualitas": 15000000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C2",
@@ -307,7 +367,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C3",
@@ -317,7 +379,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C4",
@@ -327,7 +391,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C5",
@@ -337,7 +403,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C6",
@@ -347,7 +415,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C7",
@@ -357,7 +427,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C8",
@@ -367,7 +439,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C9",
@@ -377,7 +451,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C10",
@@ -387,7 +463,9 @@
     "mutuKualitas": 5000000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C11",
@@ -397,7 +475,9 @@
     "mutuKualitas": 5000000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C12",
@@ -407,7 +487,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C13",
@@ -417,7 +499,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C14",
@@ -427,7 +511,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C15",
@@ -437,7 +523,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C16",
@@ -447,7 +535,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C17",
@@ -457,7 +547,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C18",
@@ -467,7 +559,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C19",
@@ -477,7 +571,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C20",
@@ -487,7 +583,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C21",
@@ -497,7 +595,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "C22",
@@ -507,7 +607,9 @@
     "mutuKualitas": 0,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "D1",
@@ -517,7 +619,9 @@
     "mutuKualitas": 16920000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "D2",
@@ -527,7 +631,9 @@
     "mutuKualitas": 16560000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "D3",
@@ -537,7 +643,9 @@
     "mutuKualitas": 16200000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "D4",
@@ -547,7 +655,9 @@
     "mutuKualitas": 15930000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "D5",
@@ -557,7 +667,9 @@
     "mutuKualitas": 15570000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "D6",
@@ -567,7 +679,9 @@
     "mutuKualitas": 15210000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "D7",
@@ -577,7 +691,9 @@
     "mutuKualitas": 14940000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "D8",
@@ -587,7 +703,9 @@
     "mutuKualitas": 14940000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E1",
@@ -598,6 +716,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -609,6 +729,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -620,6 +742,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -631,6 +755,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -642,6 +768,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -653,6 +781,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -664,6 +794,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -675,6 +807,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -686,6 +820,8 @@
     "hook": false,
     "hargaDasar": 166000000,
     "status": null,
+    "persenReal": null,
+    "foto": null,
     "flag": "terlihat di siteplan; belum ada di pricelist"
   },
   {
@@ -696,7 +832,9 @@
     "mutuKualitas": 29625000,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "terjual",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E11",
@@ -706,7 +844,9 @@
     "mutuKualitas": 12078000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "terjual"
+    "status": "booking",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E12",
@@ -716,7 +856,9 @@
     "mutuKualitas": 10746000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E13",
@@ -726,7 +868,9 @@
     "mutuKualitas": 9405000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E14",
@@ -736,7 +880,9 @@
     "mutuKualitas": 8010000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E15",
@@ -746,7 +892,9 @@
     "mutuKualitas": 6732000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E16",
@@ -756,7 +904,9 @@
     "mutuKualitas": 5400000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E17",
@@ -766,7 +916,9 @@
     "mutuKualitas": 4068000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E18",
@@ -776,7 +928,9 @@
     "mutuKualitas": 2700000,
     "hook": false,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   },
   {
     "kode": "E19",
@@ -786,6 +940,8 @@
     "mutuKualitas": 5697500,
     "hook": true,
     "hargaDasar": 166000000,
-    "status": "tersedia"
+    "status": "tersedia",
+    "persenReal": 0,
+    "foto": null
   }
 ]

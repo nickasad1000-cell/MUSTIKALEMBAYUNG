@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import {
   getSellableUnits,
   getPricelistUnit,
+  fotoPublikUrl,
+  isBooking,
   isPresaleUnit,
   isTerjual,
   statusLabel,
@@ -86,7 +88,13 @@ export default async function UnitDetailPage({ params }: PageProps) {
   if (!u || isPresaleUnit(kode)) notFound();
 
   const sold = isTerjual(u);
+  const booking = isBooking(u);
   const belumPasti = u.status === null;
+  const foto = fotoPublikUrl(u.foto);
+  const persen =
+    u.persenReal !== null
+      ? `${new Intl.NumberFormat("id-ID", { maximumFractionDigits: 1 }).format(u.persenReal)}%`
+      : null;
 
   return (
     <div className="flex flex-col flex-1 bg-white font-sans">
@@ -121,6 +129,11 @@ export default async function UnitDetailPage({ params }: PageProps) {
                       <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-red-500" />
                       Terjual
                     </span>
+                  ) : booking ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1.5 text-xs font-bold text-sky-700">
+                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-sky-500" />
+                      Booking
+                    </span>
                   ) : belumPasti ? (
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-800">
                       <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber-500" />
@@ -137,6 +150,23 @@ export default async function UnitDetailPage({ params }: PageProps) {
                 Blok {u.blok} · Type {u.tipe} ·{" "}
                 {u.luasTanah !== null ? `${u.luasTanah} m² tanah` : "Luas hubungi marketing"} · 2 KT / 1 KM
               </p>
+
+              {u.persenReal !== null && u.persenReal > 0 && (
+                <div className="mt-4 rounded-2xl border border-navy-950/10 bg-white p-4">
+                  <div className="flex items-center justify-between gap-4 text-sm">
+                    <span className="font-semibold text-navy-900">Progres bangunan</span>
+                    <span className="font-bold tabular-nums text-navy-950">
+                      {u.persenReal >= 100 ? "Selesai" : persen}
+                    </span>
+                  </div>
+                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-navy-950/10">
+                    <div
+                      className="h-full rounded-full bg-emerald-500"
+                      style={{ width: `${Math.min(100, Math.max(0, u.persenReal))}%` }}
+                    />
+                  </div>
+                </div>
+              )}
 
               <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 rounded-3xl border border-navy-950/5 bg-zinc-50 p-8">
                 <div>
@@ -192,7 +222,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                {sold ? (
+                {sold || booking ? (
                   <a
                     href={waLink(
                       `info unit lain yang masih tersedia di Mustika Lembayung`
@@ -201,7 +231,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
                     rel="noopener noreferrer"
                     className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"
                   >
-                    Unit terjual — Tanya Unit Lain
+                    {sold ? "Unit terjual" : "Unit booking"} — Tanya Unit Lain
                   </a>
                 ) : (
                   <a
@@ -223,6 +253,16 @@ export default async function UnitDetailPage({ params }: PageProps) {
             </div>
 
             <div>
+              {foto && (
+                <figure className="mb-3 overflow-hidden rounded-2xl border border-navy-950/10 bg-zinc-100">
+                  <div
+                    role="img"
+                    aria-label={`Foto terbaru unit ${u.kode}`}
+                    className="aspect-[4/3] w-full bg-cover bg-center"
+                    style={{ backgroundImage: `url("${foto}")` }}
+                  />
+                </figure>
+              )}
               <UnitPhotoGrid photos={PHOTOS} />
             </div>
           </div>

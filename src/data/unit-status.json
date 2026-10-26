@@ -1,71 +1,347 @@
 {
-  "A1": "tersedia",
-  "A2": "tersedia",
-  "A3": "tersedia",
-  "A4": "tersedia",
-  "A5": "tersedia",
-  "A6": "tersedia",
-  "A7": "terjual",
-  "A8": "tersedia",
-  "A9": "terjual",
-  "B1": "terjual",
-  "B2": "terjual",
-  "B3": "terjual",
-  "B4": "tersedia",
-  "B5": "terjual",
-  "B6": "tersedia",
-  "B7": "tersedia",
-  "B8": "terjual",
-  "B9": "tersedia",
-  "B10": "tersedia",
-  "B11": "tersedia",
-  "B12": "terjual",
-  "B13": "terjual",
-  "B14": "terjual",
-  "B15": "terjual",
-  "B16": "terjual",
-  "B17": "tersedia",
-  "B18": "terjual",
-  "B19": "terjual",
-  "B20": "tersedia",
-  "C1": "tersedia",
-  "C2": "tersedia",
-  "C3": "tersedia",
-  "C4": "tersedia",
-  "C5": "tersedia",
-  "C6": "tersedia",
-  "C7": "tersedia",
-  "C8": "tersedia",
-  "C9": "tersedia",
-  "C10": "tersedia",
-  "C11": "tersedia",
-  "C12": "tersedia",
-  "C13": "tersedia",
-  "C14": "tersedia",
-  "C15": "tersedia",
-  "C16": "tersedia",
-  "C17": "tersedia",
-  "C18": "tersedia",
-  "C19": "tersedia",
-  "C20": "tersedia",
-  "C21": "tersedia",
-  "C22": "tersedia",
-  "D1": "tersedia",
-  "D2": "tersedia",
-  "D3": "tersedia",
-  "D4": "tersedia",
-  "D5": "tersedia",
-  "D6": "tersedia",
-  "D7": "tersedia",
-  "D8": "tersedia",
-  "E10": "terjual",
-  "E11": "terjual",
-  "E12": "tersedia",
-  "E13": "tersedia",
-  "E14": "tersedia",
-  "E15": "tersedia",
-  "E16": "tersedia",
-  "E17": "tersedia",
-  "E18": "tersedia",
-  "E19": "tersedia"
+  "A1": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "A2": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "A3": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "A4": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "A5": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "A6": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "A7": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "A8": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "A9": {
+    "status": "terjual",
+    "persen": 0,
+    "foto": null
+  },
+  "B1": {
+    "status": "terjual",
+    "persen": 0,
+    "foto": null
+  },
+  "B2": {
+    "status": "terjual",
+    "persen": 0,
+    "foto": null
+  },
+  "B3": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "B4": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "B5": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "B6": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "B7": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "B8": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "B9": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "B10": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "B11": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "B12": {
+    "status": "terjual",
+    "persen": 0,
+    "foto": null
+  },
+  "B13": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "B14": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "B15": {
+    "status": "terjual",
+    "persen": 0,
+    "foto": null
+  },
+  "B16": {
+    "status": "terjual",
+    "persen": 0,
+    "foto": null
+  },
+  "B17": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "B18": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "B19": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "B20": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "C1": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C2": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "C3": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C4": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C5": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C6": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C7": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C8": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C9": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C10": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C11": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C12": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C13": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C14": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C15": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C16": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C17": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C18": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C19": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C20": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C21": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "C22": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "D1": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "D2": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "D3": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "D4": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "D5": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "D6": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "D7": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "D8": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "E10": {
+    "status": "terjual",
+    "persen": 0,
+    "foto": null
+  },
+  "E11": {
+    "status": "booking",
+    "persen": 0,
+    "foto": null
+  },
+  "E12": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "E13": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "E14": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "E15": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "E16": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "E17": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "E18": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  },
+  "E19": {
+    "status": "tersedia",
+    "persen": 0,
+    "foto": null
+  }
 }

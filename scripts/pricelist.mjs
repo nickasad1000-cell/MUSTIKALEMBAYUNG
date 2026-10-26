@@ -5,8 +5,9 @@
  *Aturan repo ini:
  *  1. Angka harga dan luas tanah HANYA boleh diubah di file ini, dan hanya kalau
  *     dokumennya berubah. src/data/pricelist.json DIHASILKAN oleh skrip ini.
- *  2. Status ketersediaan (terjual / tersedia) TIDAK ada di dokumen. Itu data
- *     operasional dan hanya boleh diubah di src/data/unit-status.json.
+ *  2. Status ketersediaan (tersedia / booking / terjual), progres bangunan,
+ *     dan foto TIDAK ada di dokumen. Itu data operasional dan hanya boleh
+ *     diubah lewat `npm run unit:tarik` yang menulis src/data/unit-status.json.
  *  3. `npm test` membandingkan ulang hasil generate dengan file yang ter-commit,
  *     jadi edit manual pada pricelist.json akan menggagalkan build.
  *
@@ -134,7 +135,20 @@ function readStatus() {
   }
 }
 
-/** Bangun pricelist.json dari dokumen + status operasional. */
+/** Bentuk lama: "A1": "tersedia". Bentuk baru: objek status/progres/foto. */
+function normalizeStatus(entry) {
+  if (typeof entry === "string") return { status: entry, persenReal: null, foto: null };
+  if (entry && typeof entry === "object") {
+    return {
+      status: entry.status ?? null,
+      persenReal: typeof entry.persen === "number" ? entry.persen : null,
+      foto: typeof entry.foto === "string" && entry.foto ? entry.foto : null,
+    };
+  }
+  return { status: null, persenReal: null, foto: null };
+}
+
+/** Bangun pricelist.json dari dokumen + data operasional hasil unit:tarik. */
 export function buildPricelist() {
   const status = readStatus();
 
@@ -142,6 +156,7 @@ export function buildPricelist() {
   for (const [blok, baris] of Object.entries(DOKUMEN.blok)) {
     for (const [kode, tipe, luas, mutu, hook] of baris) {
       for (const unit of expandRanged(kode, tipe, luas, mutu, hook, blok)) {
+        const info = normalizeStatus(status[unit.kode]);
         units.push({
           kode: unit.kode,
           blok,
@@ -150,7 +165,9 @@ export function buildPricelist() {
           mutuKualitas: unit.mutu,
           hook: unit.hook,
           hargaDasar: DOKUMEN.hargaDasar,
-          status: status[unit.kode] ?? null,
+          status: info.status,
+          persenReal: info.persenReal,
+          foto: info.foto,
         });
       }
     }
@@ -166,6 +183,8 @@ export function buildPricelist() {
       hook: false,
       hargaDasar: DOKUMEN.hargaDasar,
       status: null,
+      persenReal: null,
+      foto: null,
       flag: pre.flag,
     });
   }
@@ -193,6 +212,7 @@ function cmdShow() {
   const units = buildPricelist();
   const jual = units.filter((u) => u.luasTanah !== null);
   const terjual = jual.filter((u) => u.status === "terjual");
+  const booking = jual.filter((u) => u.status === "booking");
   const tersedia = jual.filter((u) => u.status === "tersedia");
   const belum = jual.filter((u) => u.status === null);
   const pre = units.filter((u) => u.luasTanah === null);
@@ -201,6 +221,7 @@ function cmdShow() {
   console.log(`Unit di dokumen: ${units.length - pre.length}`);
   console.log(`Pra-penjualan : ${pre.length} (${pre.map((u) => u.kode).join(", ")})`);
   console.log(`Tersedia      : ${tersedia.length}`);
+  console.log(`Booking       : ${booking.length}`);
   console.log(`Terjual       : ${terjual.length} (${terjual.map((u) => u.kode).join(", ")})`);
   console.log(`Belum dipastikan: ${belum.length}${belum.length ? ` (${belum.map((u) => u.kode).join(", ")})` : ""}`);
 }
@@ -253,11 +274,13 @@ function cmdCheck() {
       errors.push(`INV-04 ${u.kode}: mutuKualitas ${u.mutuKualitas} bukan kelipatan Rp500 - indikasi angka hasil tebakan`);
   }
 
-  /* INV-05: status hanya boleh 'tersedia' | 'terjual' | null. */
-  const STATUS_VALID = new Set(["tersedia", "terjual", null]);
+  /* INV-05: status hanya boleh 'tersedia' | 'booking' | 'terjual' | null. */
+  const STATUS_VALID = new Set(["tersedia", "booking", "terjual", null]);
   for (const u of units) {
     if (!STATUS_VALID.has(u.status))
       errors.push(`INV-05 ${u.kode}: status "${u.status}" tidak dikenal`);
+    if (u.persenReal !== null && (typeof u.persenReal !== "number" || u.persenReal < 0 || u.persenReal > 100))
+      errors.push(`INV-05 ${u.kode}: progres ${u.persenReal} di luar 0-100`);
   }
 
   /* INV-06: unit tanpa status tidak boleh dihitung sebagai tersedia.
@@ -268,7 +291,7 @@ function cmdCheck() {
     warnings.push(
       `INV-06 ${tanpaStatus.length} unit tanpa status akan tampil sebagai ` +
         `"belum dapat dipastikan": ${tanpaStatus.map((u) => u.kode).join(", ")}. ` +
-        `Isi src/data/unit-status.json agar tampil sebagai tersedia atau terjual.`
+        `Jalankan npm run unit:tarik agar status/progres/foto diperbarui dari tracker.`
     );
   }
 
@@ -302,7 +325,7 @@ function diffUnit(committed, expected) {
       bagian.push(`${c.kode}: ada di pricelist.json, tidak ada di dokumen`);
       continue;
     }
-    for (const field of ["luasTanah", "mutuKualitas", "hook", "status", "tipe"]) {
+    for (const field of ["luasTanah", "mutuKualitas", "hook", "status", "persenReal", "foto", "tipe"]) {
       if (c[field] !== e[field])
         bagian.push(`${c.kode}.${field}: ${JSON.stringify(c[field])} -> ${JSON.stringify(e[field])}`);
     }
@@ -315,10 +338,11 @@ function diffUnit(committed, expected) {
 function report(errors, warnings, units) {
   const jual = units.filter((u) => u.luasTanah !== null);
   const terjual = jual.filter((u) => u.status === "terjual");
+  const booking = jual.filter((u) => u.status === "booking");
   const tersedia = jual.filter((u) => u.status === "tersedia");
   const belum = jual.filter((u) => u.status === null);
 
-  console.log(`Pricelist   : ${jual.length} unit dijual (${tersedia.length} tersedia, ${terjual.length} terjual, ${belum.length} belum dipastikan)`);
+  console.log(`Pricelist   : ${jual.length} unit dijual (${tersedia.length} tersedia, ${booking.length} booking, ${terjual.length} terjual, ${belum.length} belum dipastikan)`);
   console.log(`Hook        : ${jual.filter((u) => u.hook).length} unit`);
 
   for (const w of warnings) console.warn(`\nPERINGATAN:\n  - ${w}`);

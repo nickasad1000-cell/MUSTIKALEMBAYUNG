@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { PricelistUnit } from "@/lib/pricelist";
-import { isTerjual, statusLabel } from "@/lib/pricelist";
+import { isBooking, isTerjual, statusLabel } from "@/lib/pricelist";
 import { pricelistNotes, waLink } from "@/lib/site";
 
 const BLOKS = ["A", "B", "C", "D", "E"] as const;
@@ -24,7 +24,9 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
   );
   const sorted = rows[0]?.blok && rows.length === units.length ? [...rows].sort((a, b) => a.blok.localeCompare(b.blok) || a.kode.localeCompare(b.kode, "id", { numeric: true })) : rows;
   const terjual = units.filter(isTerjual).length;
+  const booking = units.filter(isBooking).length;
   const belumPasti = units.filter((u) => u.status === null).length;
+  const tersedia = units.length - terjual - booking - belumPasti;
 
   return (
     <section id="pricelist" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
@@ -82,8 +84,14 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
           <p className="inline-flex flex-wrap items-center gap-4 text-sm font-semibold text-zinc-700">
             <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 ring-1 ring-navy-950/10">
               <span aria-hidden className="h-2 w-2 rounded-full bg-emerald-500" />
-              Tersedia {units.length - terjual - belumPasti} dari {units.length} unit
+              Tersedia {tersedia} dari {units.length} unit
             </span>
+            {booking > 0 && (
+              <span className="inline-flex items-center gap-2 rounded-full bg-sky-50 px-4 py-2 text-sky-800 ring-1 ring-sky-200">
+                <span aria-hidden className="h-2 w-2 rounded-full bg-sky-500" />
+                {booking} unit booking
+              </span>
+            )}
             {belumPasti > 0 && (
               <span className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-4 py-2 text-amber-800 ring-1 ring-amber-200">
                 <span aria-hidden className="h-2 w-2 rounded-full bg-amber-500" />
@@ -110,6 +118,7 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
             <tbody className="divide-y divide-navy-950/5">
               {sorted.map((u) => {
                 const sold = isTerjual(u);
+                const dibooking = isBooking(u);
                 const belumPasti = u.status === null;
                 return (
                   <tr
@@ -128,6 +137,7 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
                         </span>
                       )}
                       {sold && <span className="sr-only"> (terjual)</span>}
+                      {dibooking && <span className="sr-only"> (booking)</span>}
                       {belumPasti && <span className="sr-only"> (status belum dipastikan)</span>}
                     </td>
                     <td className="px-5 py-3.5 text-zinc-600">{u.tipe}</td>
@@ -142,6 +152,11 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-bold text-red-600">
                           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-red-500" />
                           Terjual
+                        </span>
+                      ) : dibooking ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-2.5 py-1 text-xs font-bold text-sky-700">
+                          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-sky-500" />
+                          Booking
                         </span>
                       ) : belumPasti ? (
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-800">

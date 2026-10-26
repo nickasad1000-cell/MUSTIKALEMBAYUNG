@@ -7,6 +7,7 @@
     "pricelist": "node scripts/pricelist.mjs build",
     "pricelist:check": "node scripts/pricelist.mjs check",
     "pricelist:show": "node scripts/pricelist.mjs show",
+    "unit:tarik": "node scripts/unit-tarik.mjs && node scripts/pricelist.mjs build",
     "test": "node scripts/pricelist.mjs check",
     "verify": "npm run lint && npm run build",
     "build": "npm test && next build",
