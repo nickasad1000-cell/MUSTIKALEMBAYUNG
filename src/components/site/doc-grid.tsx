@@ -10,7 +10,7 @@ export function DocGrid() {
 
   return (
     <>
-      <div className="mt-12 grid gap-6 md:grid-cols-2">
+      <div className="mt-12 grid gap-6 md:grid-cols-3">
         {docItems.map((doc, i) => (
           <button
             key={doc.title}
@@ -22,7 +22,7 @@ export function DocGrid() {
                 src={doc.src}
                 alt={doc.title}
                 fill
-                sizes="(min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 768px) 33vw, 100vw"
                 className="object-contain p-2 transition-transform duration-700 ease-brand group-hover:scale-[1.02] photo-outline"
               />
               <span

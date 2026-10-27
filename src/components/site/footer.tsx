@@ -4,7 +4,7 @@ import { site, waLink } from "@/lib/site";
 
 const NAV = [
   { href: "/#katalog", label: "Tipe Rumah" },
-  { href: "/#pricelist", label: "Pricelist" },
+  { href: "/#pricelist", label: "Daftar Unit" },
   { href: "/#galeri", label: "Galeri" },
   { href: "/#lokasi", label: "Lokasi" },
 ];
@@ -16,25 +16,20 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10">
-                <Image
-                  src="/assets/logo-icon-dark.png"
-                  alt={`Logo ${site.name}`}
-                  width={24}
-                  height={22}
-                  className="h-6 w-auto"
-                />
-              </span>
+              <Image
+                src="/assets/logo-icon-dark.png"
+                alt={`Logo ${site.name}`}
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-lg ring-1 ring-white/20"
+              />
               <div>
                 <p className="text-sm font-extrabold">{site.name}</p>
                 <p className="text-xs text-white/60">{site.developer}</p>
               </div>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
-              Rumah subsidi dengan spek komersial
-              <span className="block">
-                Siap huni tanpa renovasi untuk keluarga Anda.
-              </span>
+              Rumah subsidi tipe 36/60 di Sumbersuko, Lumajang.
             </p>
           </div>
 

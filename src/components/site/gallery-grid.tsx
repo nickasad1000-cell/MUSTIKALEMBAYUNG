@@ -12,10 +12,7 @@ export function GalleryGrid() {
     <>
       <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
         {galleryItems.map((item, i) => (
-          <figure
-            key={item.caption}
-            className={i === galleryItems.length - 1 ? "max-md:col-span-2" : ""}
-          >
+          <figure key={item.caption}>
             <button
               onClick={() => setIndex(i)}
               aria-label={`Perbesar foto ${item.caption}`}
@@ -26,9 +23,7 @@ export function GalleryGrid() {
                 alt={item.caption}
                 fill
                 sizes="(min-width: 768px) 33vw, 50vw"
-                className={`object-cover transition-transform duration-700 ease-brand group-hover:scale-[1.05] photo-outline ${
-                  item.src.endsWith(".png") ? "object-contain p-4" : ""
-                }`}
+                className="object-cover transition-transform duration-700 ease-brand group-hover:scale-[1.05] photo-outline"
               />
               <span
                 aria-hidden

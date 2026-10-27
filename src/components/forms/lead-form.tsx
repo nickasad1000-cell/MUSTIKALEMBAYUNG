@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, MessageCircle } from "lucide-react";
+import { CheckCircle2, Send } from "lucide-react";
 import type { Unit } from "@/lib/units";
 import { priceShort } from "@/lib/units";
 
@@ -57,7 +57,7 @@ export function LeadForm({ units }: { units: Unit[] }) {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-navy-200 bg-white px-4 py-3 text-sm font-medium text-navy-950 outline-none transition placeholder:text-navy-800/55 focus:border-navy-700 focus:ring-2 focus:ring-navy-700/20";
+    "w-full rounded-xl border border-navy-200 bg-white px-4 py-3.5 text-sm font-medium text-navy-950 outline-none transition placeholder:text-navy-800/55 focus:border-navy-700 focus:ring-2 focus:ring-navy-700/20";
 
   return (
     <div className="w-full rounded-2xl bg-paper p-6 ring-1 ring-navy-100 sm:p-8">
@@ -82,6 +82,15 @@ export function LeadForm({ units }: { units: Unit[] }) {
         ) : (
           <>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <h3 className="text-lg font-extrabold tracking-tight text-navy-950">
+                  Kirim minat Anda
+                </h3>
+                <p className="mt-1 text-sm leading-relaxed text-navy-800/70">
+                  Tim pemasaran akan menghubungi Anda.
+                </p>
+              </div>
+
               <div>
                 <label
                   htmlFor="lead-name"
@@ -189,17 +198,21 @@ export function LeadForm({ units }: { units: Unit[] }) {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy-950 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-navy-800 active:scale-[0.98] disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-400 px-6 py-3.5 text-sm font-bold text-navy-950 transition hover:bg-gold-300 active:scale-[0.98] disabled:opacity-60"
               >
                 {status === "loading" ? (
                   "Mengirim…"
                 ) : (
                   <>
-                    <MessageCircle size={18} />
+                    <Send size={18} />
                     Kirim Minat Saya
                   </>
                 )}
               </button>
+
+              <p className="text-center text-xs leading-relaxed text-navy-800/55">
+                Data Anda hanya digunakan untuk kebutuhan pemasaran unit.
+              </p>
             </form>
           </>
         )}

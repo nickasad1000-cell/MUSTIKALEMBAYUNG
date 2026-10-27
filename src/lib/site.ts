@@ -1,9 +1,9 @@
 export const site = {
   name: "Mustika Lembayung",
   developer: "PT. Lembayung Wanantara Padha",
-  tagline: "Siap Huni · Tanpa Perlu Renovasi",
+  tagline: "Rumah Subsidi Tipe 36/60 di Sumbersuko",
   description:
-    "Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi dengan spek komersial — siap huni tanpa renovasi, full granit, canopy carport, kompor tanam. Booking hanya Rp100 ribu.",
+    "Perumahan Mustika Lembayung di Sumbersuko, Lumajang. Rumah subsidi tipe 36/60 dengan harga Rp166 juta.",
   whatsapp: "6281333372016",
   whatsappDisplay: "0813-3337-2016",
   address: "Sumbersuko, Lumajang, Jawa Timur",
@@ -11,7 +11,7 @@ export const site = {
   mapsEmbed:
     "https://www.google.com/maps?q=-8.1670075,113.1694113&z=17&output=embed",
   mapsLink: "https://maps.app.goo.gl/KZAXAtritUGe6fkD9",
-  promo: "Booking hanya Rp100 ribu — bisa langsung terima kunci",
+  promo: "Booking Rp100 ribu",
 } as const;
 
 export function waLink(text?: string): string {
@@ -27,13 +27,12 @@ export interface GalleryItem {
 }
 
 export const galleryItems: GalleryItem[] = [
-  { src: "/assets/teras-carport.webp", caption: "Teras & Carport Tipe 36" },
+  { src: "/assets/teras-carport.webp", caption: "Teras & Carport Tipe 36/60" },
   { src: "/assets/ruang-tamu.webp", caption: "Ruang Tamu & Dapur" },
   { src: "/assets/kamar-tidur.webp", caption: "Kamar Tidur" },
   { src: "/assets/kamar-tidur-2.webp", caption: "Kamar Tidur — Tampak Lain" },
   { src: "/assets/kamar-mandi.webp", caption: "Kamar Mandi" },
   { src: "/assets/tampak-depan.webp", caption: "Tampak Depan Rumah" },
-  { src: "/assets/denah-tipe-36.webp", caption: "Denah Tipe 36" },
 ];
 
 export interface DocItem {
@@ -48,6 +47,12 @@ export const docItems: DocItem[] = [
     title: "Siteplan Lokasi",
     description:
       "Denah blok A–E, lebar jalan ROW 6–7 m, pos satpam, dan akses Jalan Kabupaten.",
+  },
+  {
+    src: "/assets/denah-tipe-36.webp",
+    title: "Denah Tipe 36/60",
+    description:
+      "Denah 2 kamar tidur, 1 kamar mandi, carport, dan area servis.",
   },
   {
     src: "/assets/ketentuan-kpr.webp",

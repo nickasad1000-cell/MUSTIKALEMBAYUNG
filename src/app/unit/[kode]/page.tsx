@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     u.mutuKualitas !== null && u.mutuKualitas > 0
       ? ` + peningkatan mutu ${rupiah(u.mutuKualitas)}`
       : "";
-  const description = `Unit ${u.kode} Blok ${u.blok}, type ${u.tipe}, tanah ±${luas}. Harga ${rupiah(u.hargaDasar)}${mutu}.${hook} Perumahan Mustika Lembayung Sumbersuko.`;
+  const description = `Unit ${u.kode} Blok ${u.blok}, tipe ${u.tipe}, tanah ±${luas}. Harga ${rupiah(u.hargaDasar)}${mutu}.${hook} Perumahan Mustika Lembayung Sumbersuko.`;
 
   return {
     title,
@@ -82,8 +82,8 @@ const SPECS = [
 ];
 
 const PHOTOS = [
-  { src: "/assets/tampak-depan.webp", alt: "Tampak depan rumah tipe 36" },
-  { src: "/assets/teras-carport.webp", alt: "Teras & carport rumah tipe 36" },
+  { src: "/assets/tampak-depan.webp", alt: "Tampak depan rumah tipe 36/60" },
+  { src: "/assets/teras-carport.webp", alt: "Teras & carport rumah tipe 36/60" },
   { src: "/assets/ruang-tamu.webp", alt: "Ruang tamu & dapur" },
   { src: "/assets/kamar-tidur.webp", alt: "Kamar tidur utama" },
   { src: "/assets/kamar-tidur-2.webp", alt: "Kamar tidur — tampak lain" },
@@ -109,7 +109,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
               target="pricelist"
               className="transition-colors duration-300 hover:text-navy-800"
             >
-              Pricelist
+              Daftar Unit
             </NavigateLink>
             <span aria-hidden> / </span>
             <span className="font-medium text-navy-950">Unit {u.kode}</span>
@@ -199,7 +199,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   target="pricelist"
                   className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"
                 >
-                  ← Lihat Pricelist
+                  ← Lihat daftar unit
                 </NavigateLink>
               </div>
             </div>
@@ -224,3 +224,4 @@ export default async function UnitDetailPage({ params }: PageProps) {
     </div>
   );
 }
+

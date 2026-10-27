@@ -27,10 +27,12 @@ Aturannya:
    bisa lolos ke produksi. Kalau gagal, jalankan `npm run pricelist`.
 4. **Jangan menambah biaya yang tidak tertulis di dokumen** (mis. "selisih tanah
    per m2"). Kalau tidak ada di `daftar-harga.webp`, jangan ditampilkan.
-5. **Situs publik hanya menampilkan unit berstatus `tersedia`.** Status, progres,
-   dan jumlah unit tidak ditampilkan. Unit `null`, booking, terjual, atau presale
-   tidak boleh masuk katalog/sitemap; halaman unit lama diarahkan ke `/#pricelist`.
-   `null` berarti belum ada data operasional, bukan berarti tersedia.
+5. **Daftar unit publik menampilkan seluruh unit yang punya harga resmi
+   (`getSellableUnits()`), termasuk `booking` dan `terjual`, dengan badge status.**
+   Halaman detail dan tombol Pesan hanya untuk unit `tersedia`; unit `null`,
+   booking, terjual, atau presale tidak boleh punya halaman detail atau masuk
+   sitemap. Halaman unit lama diarahkan ke `/#pricelist`. `null` berarti belum ada
+   data operasional, bukan berarti tersedia.
 6. **Jangan menebak angka dari unit lain.** Blok E pernah rusak justru karena
    kolom mutu diisi dengan deret baris yang bergeser satu. Ambil setiap angka
    dari barisnya sendiri di dokumen.

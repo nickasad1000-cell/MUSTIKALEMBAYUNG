@@ -8,8 +8,8 @@ import { site, waLink } from "@/lib/site";
 
 const NAV = [
   { id: "katalog", label: "Tipe Rumah" },
-  { id: "pricelist", label: "Pricelist" },
-  { id: "harga", label: "Harga & Siteplan" },
+  { id: "pricelist", label: "Daftar Unit" },
+  { id: "harga", label: "Siteplan & KPR" },
   { id: "galeri", label: "Galeri" },
   { id: "lokasi", label: "Lokasi" },
 ];
@@ -86,20 +86,16 @@ export function Header() {
           className="flex h-16 items-center gap-2.5"
           aria-label={`${site.name} — kembali ke atas`}
         >
-          <span
-            className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-              solid ? "bg-navy-950" : "bg-white/15 backdrop-blur"
+          <Image
+            src="/assets/logo-icon-dark.png"
+            alt={`Logo ${site.developer}`}
+            width={36}
+            height={36}
+            preload
+            className={`h-9 w-9 rounded-lg ${
+              solid ? "ring-1 ring-navy-950/10" : "ring-1 ring-white/30"
             }`}
-          >
-            <Image
-              src="/assets/logo-icon-dark.png"
-              alt={`Logo ${site.developer}`}
-              width={22}
-              height={20}
-              preload
-              className="h-5 w-auto"
-            />
-          </span>
+          />
           <span
             className={`text-sm font-extrabold tracking-tight whitespace-nowrap ${
               solid ? "text-navy-950" : "text-white"

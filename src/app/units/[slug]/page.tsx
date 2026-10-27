@@ -52,8 +52,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: "Unit tidak ditemukan", robots: { index: false } };
   }
 
-  const title = `${unit.name} ${unit.buildingArea}/${unit.landArea} m² — Rumah Subsidi Siap Huni Lumajang`;
-  const description = `Rumah ${unit.buildingArea}/${unit.landArea} m², ${unit.bedrooms} kamar tidur, ${unit.bathrooms} kamar mandi. Siap huni tanpa renovasi di ${site.address}. ${site.promo}.`;
+  const title = `${unit.name} ${unit.buildingArea}/${unit.landArea} m² — Rumah Subsidi Lumajang`;
+  const description = `Rumah ${unit.buildingArea}/${unit.landArea} m², ${unit.bedrooms} kamar tidur, ${unit.bathrooms} kamar mandi di ${site.address}. ${site.promo}.`;
 
   return {
     title,
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title,
-      description: `Rumah subsidi siap huni ${unit.buildingArea}/${unit.landArea} m² di Lumajang. ${site.promo}.`,
+      description: `Rumah subsidi ${unit.buildingArea}/${unit.landArea} m² di Lumajang. ${site.promo}.`,
       images: ["/assets/og-image.jpg"],
     },
   };

@@ -20,15 +20,15 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mustikalembayung.vercel.app"),
-  title: "Mustika Lembayung Sumbersuko — Rumah Siap Huni Tanpa Renovasi | Lumajang",
-  description: `Perumahan Mustika Lembayung Sumbersuko, Lumajang. Rumah subsidi dengan spek komersial — siap huni tanpa renovasi, full granit, canopy carport. Booking hanya Rp100 ribu. ${pricelistCounts().tersedia} unit tersedia.`,
+  title: "Mustika Lembayung Sumbersuko — Rumah Subsidi Tipe 36/60 | Lumajang",
+  description: `Perumahan Mustika Lembayung di Sumbersuko, Lumajang. Rumah subsidi tipe 36/60, harga Rp166 juta. ${pricelistCounts().tersedia} unit tersedia.`,
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Mustika Lembayung Sumbersuko — Rumah Siap Huni Tanpa Renovasi",
+    title: "Mustika Lembayung Sumbersuko — Rumah Subsidi Tipe 36/60",
     description:
-      "Rumah subsidi dengan spek komersial di Sumbersuko, Lumajang. Full granit, canopy carport, kompor tanam. Booking hanya Rp100 ribu — langsung terima kunci.",
+      "Rumah subsidi tipe 36/60 di Sumbersuko, Lumajang. Harga Rp166 juta, booking Rp100 ribu.",
     url: "/",
     siteName: "Mustika Lembayung Sumbersuko",
     locale: "id_ID",
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mustika Lembayung Sumbersuko — Rumah Siap Huni Tanpa Renovasi",
+    title: "Mustika Lembayung Sumbersuko — Rumah Subsidi Tipe 36/60",
     description:
-      "Rumah subsidi dengan spek komersial di Sumbersuko, Lumajang. Booking hanya Rp100 ribu.",
+      "Rumah subsidi tipe 36/60 di Sumbersuko, Lumajang. Harga Rp166 juta.",
     images: ["/assets/og-image.jpg"],
   },
 };
@@ -49,7 +49,7 @@ const jsonLd = {
   "@type": "Residence",
   name: "Mustika Lembayung Sumbersuko",
   description:
-    "Perumahan rumah subsidi siap huni tanpa renovasi di Sumbersuko, Lumajang oleh PT. Lembayung Wanantara Padha.",
+    "Perumahan rumah subsidi tipe 36/60 di Sumbersuko, Lumajang oleh PT. Lembayung Wanantara Padha.",
   url: "https://mustikalembayung.vercel.app",
   telephone: "+6281333372016",
   address: {
