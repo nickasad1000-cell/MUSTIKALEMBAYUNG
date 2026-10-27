@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 import type { Unit } from "@/lib/units";
 import { priceShort } from "@/lib/units";
 
@@ -25,7 +26,6 @@ export function LeadForm({ units }: { units: Unit[] }) {
         body: JSON.stringify({
           name: String(data.get("name") ?? ""),
           phone: String(data.get("phone") ?? ""),
-          email: String(data.get("email") ?? "") || undefined,
           unitSlug: String(data.get("unitSlug") ?? "") || undefined,
           message: String(data.get("message") ?? "") || undefined,
           website: String(data.get("website") ?? "") || undefined,
@@ -57,46 +57,37 @@ export function LeadForm({ units }: { units: Unit[] }) {
   }
 
   const inputClass =
-    "h-11 w-full rounded-xl border border-zinc-200 bg-white px-3.5 text-sm text-navy-950 outline-none transition-colors duration-300 placeholder:text-zinc-400 focus:border-navy-500 focus:ring-2 focus:ring-navy-500/20";
+    "w-full rounded-xl border border-navy-200 bg-white px-4 py-3 text-sm font-medium text-navy-950 outline-none transition placeholder:text-navy-800/55 focus:border-navy-700 focus:ring-2 focus:ring-navy-700/20";
 
   return (
-    <div className="w-full max-w-md rounded-3xl border border-navy-950/5 bg-navy-950/[0.06] p-2 shadow-2xl shadow-navy-950/20">
-      <div className="rounded-[1.25rem] bg-white p-7 text-left">
+    <div className="w-full rounded-2xl bg-paper p-6 ring-1 ring-navy-100 sm:p-8">
+      <div>
         {status === "success" ? (
-          <div className="flex flex-col items-center gap-4 py-8 text-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gold-400 text-2xl text-navy-950">
-              ✓
-            </span>
-            <h3 className="font-heading text-xl font-semibold text-navy-950">
+          <div className="flex flex-col items-center py-10 text-center">
+            <CheckCircle2 size={48} className="text-emerald-500" />
+            <h3 className="mt-4 text-lg font-extrabold text-navy-950">
               Terima kasih!
             </h3>
-            <p className="text-zinc-600">
-              Data Anda sudah kami terima. Tim marketing akan menghubungi Anda
-              secepatnya.
+            <p className="mt-2 max-w-xs text-sm leading-relaxed text-navy-800/70">
+              Minat Anda sudah kami terima. Tim kami akan menghubungi Anda
+              segera.
             </p>
             <button
               onClick={() => setStatus("idle")}
-              className="text-sm font-medium text-navy-700 transition-colors duration-300 hover:text-navy-950 hover:underline"
+              className="mt-6 rounded-full px-4 py-2 text-sm font-bold text-navy-700 underline underline-offset-2"
             >
-              Kirim pesan lain
+              Kirim minat lain
             </button>
           </div>
         ) : (
           <>
-            <h3 className="font-heading text-xl font-semibold text-navy-950">
-              Jadwalkan Kunjungan
-            </h3>
-            <p className="mt-1 text-sm text-zinc-500">
-              Isi form di bawah — kami balas maksimal 1×24 jam.
-            </p>
-
-            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-              <div className="space-y-1.5">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
                 <label
                   htmlFor="lead-name"
-                  className="block text-sm font-medium text-zinc-700"
+                  className="mb-1.5 block text-sm font-bold text-navy-950"
                 >
-                  Nama Lengkap *
+                  Nama Lengkap
                 </label>
                 <input
                   id="lead-name"
@@ -109,12 +100,12 @@ export function LeadForm({ units }: { units: Unit[] }) {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div>
                 <label
                   htmlFor="lead-phone"
-                  className="block text-sm font-medium text-zinc-700"
+                  className="mb-1.5 block text-sm font-bold text-navy-950"
                 >
-                  No. WhatsApp *
+                  No. WhatsApp
                 </label>
                 <input
                   id="lead-phone"
@@ -123,42 +114,26 @@ export function LeadForm({ units }: { units: Unit[] }) {
                   type="tel"
                   pattern="[0-9+\-\s]{8,}"
                   autoComplete="tel"
-                  placeholder="08xxxxxxxxxx"
+                  placeholder="08xx xxxx xxxx"
                   className={`${inputClass} tabular-nums`}
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label
-                  htmlFor="lead-email"
-                  className="block text-sm font-medium text-zinc-700"
-                >
-                  Email (opsional)
-                </label>
-                <input
-                  id="lead-email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="nama@email.com"
-                  className={inputClass}
-                />
-              </div>
-
-              <div className="space-y-1.5">
+              <div>
                 <label
                   htmlFor="lead-unit"
-                  className="block text-sm font-medium text-zinc-700"
+                  className="mb-1.5 block text-sm font-bold text-navy-950"
                 >
-                  Unit yang Diminati
+                  Unit yang Diminati{" "}
+                  <span className="font-medium text-navy-800/70">(opsional)</span>
                 </label>
                 <select
                   id="lead-unit"
                   name="unitSlug"
                   defaultValue=""
-                  className={`${inputClass} appearance-none`}
+                  className={inputClass}
                 >
-                  <option value="">— Belum menentukan —</option>
+                  <option value="">Belum menentukan</option>
                   {units.map((unit) => (
                     <option key={unit.slug} value={unit.slug}>
                       {unit.name}
@@ -168,12 +143,13 @@ export function LeadForm({ units }: { units: Unit[] }) {
                 </select>
               </div>
 
-              <div className="space-y-1.5">
+              <div>
                 <label
                   htmlFor="lead-message"
-                  className="block text-sm font-medium text-zinc-700"
+                  className="mb-1.5 block text-sm font-bold text-navy-950"
                 >
-                  Pesan (opsional)
+                  Pesan{" "}
+                  <span className="font-medium text-navy-800/70">(opsional)</span>
                 </label>
                 <textarea
                   id="lead-message"
@@ -181,8 +157,8 @@ export function LeadForm({ units }: { units: Unit[] }) {
                   rows={3}
                   maxLength={1000}
                   autoComplete="off"
-                  placeholder="Pertanyaan atau jadwal kunjungan yang diinginkan…"
-                  className="w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-navy-950 outline-none transition-colors duration-300 placeholder:text-zinc-400 focus:border-navy-500 focus:ring-2 focus:ring-navy-500/20"
+                  placeholder="Contoh: Saya ingin tanya syarat KPR pegawai…"
+                  className={`${inputClass} resize-none`}
                 />
               </div>
 
@@ -213,9 +189,16 @@ export function LeadForm({ units }: { units: Unit[] }) {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="h-12 w-full rounded-full bg-navy-950 text-sm font-medium text-white transition duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98] disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy-950 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-navy-800 active:scale-[0.98] disabled:opacity-60"
               >
-                {status === "loading" ? "Mengirim…" : "Kirim & Minta Info"}
+                {status === "loading" ? (
+                  "Mengirim…"
+                ) : (
+                  <>
+                    <MessageCircle size={18} />
+                    Kirim Minat Saya
+                  </>
+                )}
               </button>
             </form>
           </>

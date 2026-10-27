@@ -7,13 +7,11 @@ import { Menu, X } from "lucide-react";
 import { site, waLink } from "@/lib/site";
 
 const NAV = [
-  { id: "keunggulan", label: "Keunggulan" },
-  { id: "katalog", label: "Katalog Unit" },
+  { id: "katalog", label: "Tipe Rumah" },
   { id: "pricelist", label: "Pricelist" },
   { id: "harga", label: "Harga & Siteplan" },
   { id: "galeri", label: "Galeri" },
   { id: "lokasi", label: "Lokasi" },
-  { id: "kontak", label: "Kontak" },
 ];
 
 export function scrollToSection(id: string) {
@@ -28,7 +26,17 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  const solid = pathname !== "/" || scrolled || menuOpen;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -36,7 +44,7 @@ export function Header() {
       if (e.key === "Escape") setMenuOpen(false);
     }
     function onPointerDown(e: PointerEvent) {
-      if (!panelRef.current?.contains(e.target as Node)) setMenuOpen(false);
+      if (!headerRef.current?.contains(e.target as Node)) setMenuOpen(false);
     }
     window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onPointerDown);
@@ -56,16 +64,16 @@ export function Header() {
     }
   }
 
-  const pillClass =
-    "min-h-11 rounded-full px-4 text-left font-medium transition duration-300 ease-brand hover:bg-navy-950/5 hover:text-navy-950";
-
   return (
-    <header className="fixed inset-x-0 top-0 z-40 px-4 pt-4">
-      <div
-        ref={panelRef}
-        className="relative mx-auto flex h-16 w-full max-w-6xl items-center justify-between rounded-full border border-white/40 bg-white/85 pl-5 pr-2 shadow-lg shadow-navy-950/5 backdrop-blur-xl"
-      >
+    <header
+      ref={headerRef}
+      className={`fixed inset-x-0 top-0 z-40 transition-colors ${
+        solid ? "bg-white/95 shadow-sm backdrop-blur" : "bg-transparent"
+      }`}
+    >
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <button
+          type="button"
           onClick={() => {
             setMenuOpen(false);
             if (pathname === "/") {
@@ -75,79 +83,97 @@ export function Header() {
               router.push("/");
             }
           }}
-          className="flex min-h-11 items-center gap-3"
-          aria-label="Mustika Lembayung — kembali ke atas"
+          className="flex h-16 items-center gap-2.5"
+          aria-label={`${site.name} — kembali ke atas`}
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy-950 ring-1 ring-navy-950/10">
+          <span
+            className={`flex h-9 w-9 items-center justify-center rounded-lg ${
+              solid ? "bg-navy-950" : "bg-white/15 backdrop-blur"
+            }`}
+          >
             <Image
               src="/assets/logo-icon-dark.png"
               alt={`Logo ${site.developer}`}
-              width={32}
-              height={29}
+              width={22}
+              height={20}
               preload
-              className="h-7 w-auto"
+              className="h-5 w-auto"
             />
           </span>
-          <span className="font-heading text-lg font-semibold tracking-tight text-navy-950">
+          <span
+            className={`text-sm font-extrabold tracking-tight whitespace-nowrap ${
+              solid ? "text-navy-950" : "text-white"
+            }`}
+          >
             {site.name}
           </span>
         </button>
-        <nav className="hidden items-center gap-1 text-sm text-navy-900/70 lg:flex">
+
+        <div className="hidden items-center gap-6 lg:flex">
           {NAV.map((item) => (
             <button
               key={item.id}
+              type="button"
               onClick={() => go(item.id)}
-              className={pillClass}
+              className={`inline-flex h-16 items-center px-1 text-sm font-semibold transition-colors ${
+                solid
+                  ? "text-navy-800 hover:text-navy-950"
+                  : "text-white/85 hover:text-white"
+              }`}
             >
               {item.label}
             </button>
           ))}
-        </nav>
-        <div className="flex items-center gap-1">
-          <button
-            onClick={() => go("kontak")}
-            className="hidden h-11 items-center rounded-full bg-navy-950 px-5 text-sm font-medium text-white transition duration-300 ease-brand hover:bg-navy-800 active:scale-[0.97] min-[420px]:flex"
+          <a
+            href={waLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-11 items-center rounded-full bg-gold-400 px-4 text-sm font-bold text-navy-950 transition-transform hover:bg-gold-300 active:scale-[0.98]"
           >
-            Hubungi Kami
-          </button>
-          <button
-            onClick={() => setMenuOpen((o) => !o)}
-            className="flex h-11 w-11 items-center justify-center rounded-full text-navy-950 transition-colors duration-300 ease-brand hover:bg-navy-950/5 lg:hidden"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-nav"
-            aria-label={menuOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+            Chat WhatsApp
+          </a>
         </div>
 
-        {menuOpen && (
-          <nav
-            id="mobile-nav"
-            className="absolute inset-x-0 top-[4.25rem] flex w-full flex-col gap-1 rounded-3xl border border-navy-950/10 bg-white p-3 shadow-xl shadow-navy-950/15 lg:hidden"
-            aria-label="Navigasi utama"
-          >
-            {NAV.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => go(item.id)}
-                className={`${pillClass} w-full`}
-              >
-                {item.label}
-              </button>
-            ))}
-            <a
-              href={waLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className="mt-1 flex h-11 w-full items-center justify-center rounded-full bg-[#25D366] font-medium text-white transition active:scale-[0.98]"
+        <button
+          type="button"
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
+          className={`rounded-lg p-3 lg:hidden ${
+            solid ? "text-navy-950" : "text-white"
+          }`}
+        >
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </nav>
+
+      {menuOpen && (
+        <div
+          id="mobile-nav"
+          className="border-t border-navy-100 bg-white px-4 pb-4 pt-2 lg:hidden"
+        >
+          {NAV.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => go(item.id)}
+              className="block w-full py-2.5 text-left text-sm font-semibold text-navy-800"
             >
-              Chat WhatsApp
-            </a>
-          </nav>
-        )}
-      </div>
+              {item.label}
+            </button>
+          ))}
+          <a
+            href={waLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+            className="mt-2 block rounded-full bg-gold-400 px-4 py-2.5 text-center text-sm font-bold text-navy-950"
+          >
+            Chat WhatsApp
+          </a>
+        </div>
+      )}
     </header>
   );
 }
