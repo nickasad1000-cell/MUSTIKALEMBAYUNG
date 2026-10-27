@@ -18,8 +18,10 @@ Aturannya:
 1. **Angka harga dan luas tanah hanya boleh diubah di `scripts/pricelist.mjs`.**
    File itu adalah transkripsi dokumen. `src/data/pricelist.json` adalah file
    **hasil generate** — jangan diedit manual.
-2. **Status tersedia/terjual hanya boleh diubah di `src/data/unit-status.json`.**
-   Status tidak ada di dokumen, jadi tidak boleh dicampur ke sumber harga.
+2. **Status, progres, dan foto unit berasal dari tracker, bukan diedit manual.**
+   Jalankan `npm run unit:tarik`; skrip itu menulis `src/data/unit-status.json`
+   dan meregenerasi `src/data/pricelist.json`. Data itu tidak boleh dicampur ke
+   sumber harga.
 3. **`npm test` (= `npm run pricelist:check`) wajib hijau sebelum build.**
    `npm run build` menjalankan test ini lebih dulu, jadi harga yang salah tidak
    bisa lolos ke produksi. Kalau gagal, jalankan `npm run pricelist`.
@@ -42,5 +44,11 @@ Cek cepat tanpa server:
 ```bash
 npm run pricelist:show   # ringkasan unit
 npm test                 # verifikasi data vs dokumen
-npm run pricelist        # regenerate src/data/pricelist.json
+npm run unit:tarik       # tarik status/progres/foto dari tracker + regenerate
+npm run pricelist        # regenerate src/data/pricelist.json saja
 ```
+
+## Kredensial & alamat (wajib dibaca)
+Semua URL dan kredensial project ini ada di `D:\MADA\MADA\SELURUH PASSWORD\02-Mustika-Lembayung\` (`1-ALAMAT.md`, `2-KREDENTIAL.txt`, `3-VERIFIKASI.md`). Baca lewat panduan `D:\MADA\MADA\SELURUH PASSWORD\CARA-PAKAI-KREDENSIAL.md`; muat tanpa menampilkan nilai dengan:
+`. 'D:\MADA\MADA\SELURUH PASSWORD\load-kredensial.ps1' -Project '02-Mustika-Lembayung'`
+Jangan echo/cat nilai kredensial, jangan commit, jangan kirim ke chat. Nama key boleh disebut; nilai tidak.

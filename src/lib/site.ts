@@ -44,12 +44,6 @@ export interface DocItem {
 
 export const docItems: DocItem[] = [
   {
-    src: "/assets/daftar-harga.webp",
-    title: "Daftar Harga per Blok",
-    description:
-      "Harga tipe 36/60 blok A–E, biaya peningkatan mutu kualitas, dan blok hook.",
-  },
-  {
     src: "/assets/siteplan.webp",
     title: "Siteplan Lokasi",
     description:

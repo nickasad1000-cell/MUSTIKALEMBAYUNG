@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
-  getSellableUnits,
+  getAvailableUnits,
   getPricelistUnit,
   fotoPublikUrl,
-  isBooking,
   isPresaleUnit,
-  isTerjual,
-  statusLabel,
+  isTersedia,
   totalUangMuka,
 } from "@/lib/pricelist";
 import { pricelistNotes, waLink } from "@/lib/site";
@@ -21,23 +19,34 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  return getSellableUnits().map((u) => ({ kode: u.kode.toLowerCase() }));
+  return getAvailableUnits().map((u) => ({ kode: u.kode.toLowerCase() }));
 }
 
 function rupiah(n: number): string {
-  return n === 0 ? "Rp0" : `Rp ${new Intl.NumberFormat("id-ID").format(n)}`;
+  return `Rp ${new Intl.NumberFormat("id-ID").format(n)}`;
+}
+
+function mutuLabel(n: number | null): string {
+  if (n === null) return "Hubungi";
+  if (n === 0) return "Tidak ada";
+  return rupiah(n);
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { kode } = await params;
   const u = getPricelistUnit(kode);
-  if (!u) return { title: "Unit tidak ditemukan" };
+  if (!u || isPresaleUnit(kode) || !isTersedia(u)) {
+    return { title: "Unit tidak ditemukan" };
+  }
 
-  const state = statusLabel(u.status);
-  const title = `Unit ${u.kode} Blok ${u.blok} — Rumah Subsidi Tipe ${u.tipe} Lumajang (${state})`;
+  const title = `Unit ${u.kode} Blok ${u.blok} — Rumah Subsidi Tipe ${u.tipe} Lumajang`;
   const luas = u.luasTanah !== null ? `${u.luasTanah} m²` : "—";
   const hook = u.hook ? " Unit hook/pojok (tambahan Rp5 jt)." : "";
-  const description = `Unit ${u.kode} Blok ${u.blok}, type ${u.tipe}, tanah ±${luas}. Harga ${rupiah(u.hargaDasar)}${u.mutuKualitas !== null ? ` + peningkatan mutu ${rupiah(u.mutuKualitas)}` : ""}.${hook} Status: ${state} — Perumahan Mustika Lembayung Sumbersuko.`;
+  const mutu =
+    u.mutuKualitas !== null && u.mutuKualitas > 0
+      ? ` + peningkatan mutu ${rupiah(u.mutuKualitas)}`
+      : "";
+  const description = `Unit ${u.kode} Blok ${u.blok}, type ${u.tipe}, tanah ±${luas}. Harga ${rupiah(u.hargaDasar)}${mutu}.${hook} Perumahan Mustika Lembayung Sumbersuko.`;
 
   return {
     title,
@@ -85,16 +94,9 @@ const PHOTOS = [
 export default async function UnitDetailPage({ params }: PageProps) {
   const { kode } = await params;
   const u = getPricelistUnit(kode);
-  if (!u || isPresaleUnit(kode)) notFound();
+  if (!u || isPresaleUnit(kode) || !isTersedia(u)) notFound();
 
-  const sold = isTerjual(u);
-  const booking = isBooking(u);
-  const belumPasti = u.status === null;
   const foto = fotoPublikUrl(u.foto);
-  const persen =
-    u.persenReal !== null
-      ? `${new Intl.NumberFormat("id-ID", { maximumFractionDigits: 1 }).format(u.persenReal)}%`
-      : null;
 
   return (
     <div className="flex flex-col flex-1 bg-white font-sans">
@@ -114,7 +116,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
 
           <div className="mt-8 grid gap-12 lg:grid-cols-2">
             <div>
-<div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                   <h1 className="font-heading text-4xl font-semibold tracking-tight text-navy-950 sm:text-5xl">
                     Unit {u.kode}
                   </h1>
@@ -124,51 +126,13 @@ export default async function UnitDetailPage({ params }: PageProps) {
                       Hook / pojok +Rp5 jt
                     </span>
                   )}
-                  {sold ? (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1.5 text-xs font-bold text-red-600">
-                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-red-500" />
-                      Terjual
-                    </span>
-                  ) : booking ? (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-3 py-1.5 text-xs font-bold text-sky-700">
-                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-sky-500" />
-                      Booking
-                    </span>
-                  ) : belumPasti ? (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-800">
-                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-                      Status belum dapat dipastikan — hubungi marketing
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">
-                      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                      Tersedia
-                    </span>
-                  )}
                 </div>
               <p className="mt-2 text-lg text-zinc-600 tabular-nums">
                 Blok {u.blok} · Type {u.tipe} ·{" "}
                 {u.luasTanah !== null ? `${u.luasTanah} m² tanah` : "Luas hubungi marketing"} · 2 KT / 1 KM
               </p>
 
-              {u.persenReal !== null && u.persenReal > 0 && (
-                <div className="mt-4 rounded-2xl border border-navy-950/10 bg-white p-4">
-                  <div className="flex items-center justify-between gap-4 text-sm">
-                    <span className="font-semibold text-navy-900">Progres bangunan</span>
-                    <span className="font-bold tabular-nums text-navy-950">
-                      {u.persenReal >= 100 ? "Selesai" : persen}
-                    </span>
-                  </div>
-                  <div className="mt-2 h-2 overflow-hidden rounded-full bg-navy-950/10">
-                    <div
-                      className="h-full rounded-full bg-emerald-500"
-                      style={{ width: `${Math.min(100, Math.max(0, u.persenReal))}%` }}
-                    />
-                  </div>
-                </div>
-              )}
-
-              <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 rounded-3xl border border-navy-950/5 bg-zinc-50 p-8">
+              <dl className="mt-6 grid grid-cols-1 gap-x-6 gap-y-4 rounded-3xl border border-navy-950/5 bg-zinc-50 p-6 sm:grid-cols-2 sm:gap-y-5 sm:p-8">
                 <div>
                   <dt className="text-xs uppercase tracking-wide text-zinc-500">Harga Rumah</dt>
                   <dd className="mt-1 font-heading text-xl font-semibold tabular-nums text-navy-950 sm:text-2xl">
@@ -180,7 +144,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
                     Peningkatan Mutu
                   </dt>
                   <dd className="mt-1 font-heading text-xl font-semibold tabular-nums text-navy-950 sm:text-2xl">
-                    {u.mutuKualitas !== null ? rupiah(u.mutuKualitas) : "Hubungi"}
+                    {mutuLabel(u.mutuKualitas)}
                   </dd>
                 </div>
                 <div>
@@ -189,15 +153,11 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   </dt>
                   <dd className="mt-1 font-heading text-xl font-semibold tabular-nums text-navy-950 sm:text-2xl">
                     {u.mutuKualitas !== null ? rupiah(totalUangMuka(u)) : "Hubungi"}
-                    <span className="text-sm font-normal text-zinc-500">
-                      {" "}
-                      = tanda jadi + mutu{u.hook ? " + hook" : ""}
-                    </span>
                   </dd>
                 </div>
                 <div>
                   <dt className="text-xs uppercase tracking-wide text-zinc-500">Angsuran Mulai</dt>
-                  <dd className="mt-1 font-semibold tabular-nums text-navy-950">
+                  <dd className="mt-1 font-heading text-xl font-semibold tabular-nums text-navy-950 sm:text-2xl">
                     Rp 1.072.180<span className="text-sm font-normal text-zinc-500"> /bln (20 th)</span>
                   </dd>
                 </div>
@@ -206,6 +166,10 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   <dd className="mt-1 font-semibold tabular-nums text-navy-950">Rp 100 ribu</dd>
                 </div>
               </dl>
+              <p className="mt-3 text-xs leading-relaxed text-zinc-500">
+                Uang muka = tanda jadi + peningkatan mutu
+                {u.hook ? " + hook" : ""}.
+              </p>
 
               <ul className="mt-6 space-y-2.5 text-zinc-700">
                 {SPECS.map((s) => (
@@ -217,32 +181,19 @@ export default async function UnitDetailPage({ params }: PageProps) {
               </ul>
 
               <p className="mt-4 text-xs leading-relaxed text-zinc-400">
-                *Harga, luas tanah, dan peningkatan mutu di halaman ini disalin
-                dari pricelist resmi developer. {pricelistNotes.join(" ")}
+                *Harga dan ketentuan mengikuti kebijakan developer.{" "}
+                {pricelistNotes.join(" ")}
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                {sold || booking ? (
-                  <a
-                    href={waLink(
-                      `info unit lain yang masih tersedia di Mustika Lembayung`
-                    )}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"
-                  >
-                    {sold ? "Unit terjual" : "Unit booking"} — Tanya Unit Lain
-                  </a>
-                ) : (
-                  <a
-                    href={waLink(`unit ${u.kode} (Blok ${u.blok}, type ${u.tipe})`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-12 flex-1 items-center justify-center rounded-full bg-navy-950 px-6 font-medium text-white transition duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98]"
-                  >
-                    Tanya Unit {u.kode} via WhatsApp
-                  </a>
-                )}
+                <a
+                  href={waLink(`unit ${u.kode} (Blok ${u.blok}, type ${u.tipe})`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-12 flex-1 items-center justify-center rounded-full bg-navy-950 px-6 font-medium text-white transition duration-300 ease-brand hover:bg-navy-800 active:scale-[0.98]"
+                >
+                  Tanya Unit {u.kode} via WhatsApp
+                </a>
                 <NavigateLink
                   target="pricelist"
                   className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"

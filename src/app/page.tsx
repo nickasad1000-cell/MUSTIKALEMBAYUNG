@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getAllUnits } from "@/lib/units";
+import { getAvailableUnits as getAvailableTypes } from "@/lib/units";
 import { pricingStats, site, waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
@@ -10,7 +10,10 @@ import { DocGrid } from "@/components/site/doc-grid";
 import { SmoothLink } from "@/components/site/smooth-link";
 import { UnitCatalog } from "@/components/catalog/unit-catalog";
 import { PricelistTable } from "@/components/site/pricelist-table";
-import { pricelistCounts, getSellableUnits } from "@/lib/pricelist";
+import {
+  pricelistCounts,
+  getAvailableUnits as getAvailablePricelistUnits,
+} from "@/lib/pricelist";
 import { LeadForm } from "@/components/forms/lead-form";
 import { InstallmentCalculator } from "@/components/site/installment-calculator";
 import { FloatingWa } from "@/components/site/floating-wa";
@@ -82,7 +85,8 @@ const FAQ_LD = {
 };
 
 export default function Home() {
-  const units = getAllUnits();
+  const units = getAvailableTypes();
+  const readyUnits = getAvailablePricelistUnits();
 
   return (
     <div className="flex flex-col flex-1 bg-white font-sans">
@@ -111,7 +115,7 @@ export default function Home() {
             aria-hidden
             className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/85 to-navy-950/40"
           />
-          <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-7 px-6 pb-28 pt-40 sm:pb-36 sm:pt-52">
+          <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-7 px-6 pb-20 pt-32 sm:pb-28 sm:pt-44">
             <p className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm backdrop-blur">
               {site.tagline}
             </p>
@@ -127,7 +131,7 @@ export default function Home() {
             </p>
             <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-semibold backdrop-blur tabular-nums">
               <span aria-hidden className="h-2 w-2 rounded-full bg-emerald-400" />
-              {pricelistCounts().tersedia} unit tersedia dari {pricelistCounts().total} unit
+              {pricelistCounts().tersedia} unit tersedia
             </p>
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
               <SmoothLink
@@ -148,16 +152,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Promo strip */}
-        <section className="border-b border-gold-500/20 bg-gold-400 py-4">
-          <p className="mx-auto max-w-6xl px-6 text-center text-sm font-semibold text-navy-950">
-            🎉 Promo Siap Huni: booking cuma Rp100 ribu — free DP, free biaya
-            balik nama, cicilan flat ±Rp1 juta sampai lunas.
-          </p>
-        </section>
-
         {/* Keunggulan */}
-        <section id="keunggulan" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
+        <section id="keunggulan" className="scroll-mt-28 bg-zinc-50 py-16 sm:py-24">
           <div className="mx-auto w-full max-w-6xl px-6">
             <Reveal>
               <Eyebrow>Kenapa Mustika Lembayung</Eyebrow>
@@ -191,12 +187,12 @@ export default function Home() {
         </section>
 
         {/* Katalog Unit */}
-        <section id="katalog" className="scroll-mt-28 py-24 sm:py-32">
+        <section id="katalog" className="scroll-mt-28 py-16 sm:py-24">
           <div className="mx-auto w-full max-w-6xl px-6">
             <Reveal>
               <Eyebrow>Katalog Unit</Eyebrow>
               <h2 className="mt-5 max-w-xl font-heading text-3xl font-semibold tracking-tight text-navy-950 sm:text-4xl">
-                Pilih tipe hunian untuk keluarga Anda
+                Tipe hunian yang tersedia
               </h2>
             </Reveal>
             <UnitCatalog units={units} />
@@ -204,11 +200,10 @@ export default function Home() {
         </section>
 
         {/* Pricelist per unit */}
-        <PricelistTable units={getSellableUnits()} />
+        <PricelistTable units={readyUnits} />
 
         {/* Harga & Siteplan */}
-        {/* Harga & Siteplan */}
-        <section id="harga" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
+        <section id="harga" className="scroll-mt-28 bg-zinc-50 py-16 sm:py-24">
           <div className="mx-auto w-full max-w-6xl px-6">
             <Reveal>
               <Eyebrow>Transparan & Jelas</Eyebrow>
@@ -216,8 +211,8 @@ export default function Home() {
                 Harga & siteplan
               </h2>
               <p className="mt-4 max-w-2xl leading-relaxed text-zinc-600">
-                Klik dokumen untuk memperbesar — semua angka resmi dari
-                developer, tanpa biaya tersembunyi.
+                Siteplan dan simulasi angsuran resmi developer. Klik dokumen
+                untuk memperbesar.
               </p>
             </Reveal>
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -238,7 +233,7 @@ export default function Home() {
         </section>
 
         {/* Galeri */}
-        <section id="galeri" className="scroll-mt-28 py-24 sm:py-32">
+        <section id="galeri" className="scroll-mt-28 py-16 sm:py-24">
           <div className="mx-auto w-full max-w-6xl px-6">
             <Reveal>
               <Eyebrow>Galeri</Eyebrow>
@@ -254,7 +249,7 @@ export default function Home() {
         </section>
 
         {/* Lokasi */}
-        <section id="lokasi" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
+        <section id="lokasi" className="scroll-mt-28 bg-zinc-50 py-16 sm:py-24">
           <div className="mx-auto w-full max-w-6xl px-6">
             <Reveal>
               <Eyebrow>Lokasi Strategis</Eyebrow>
@@ -285,14 +280,14 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full px-3 text-sm font-medium text-navy-700 transition-colors duration-300 hover:text-navy-950"
               >
-                📍 Buka di Google Maps →
+                Buka di Google Maps →
               </a>
             </Reveal>
           </div>
         </section>
 
         {/* CTA / Kontak */}
-        <section id="kontak" className="scroll-mt-28 bg-navy-950 py-24 text-white sm:py-32">
+        <section id="kontak" className="scroll-mt-28 bg-navy-950 py-16 text-white sm:py-24">
           <div className="mx-auto grid w-full max-w-6xl items-start gap-12 px-6 lg:grid-cols-2">
             <Reveal>
               <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90">
@@ -316,7 +311,7 @@ export default function Home() {
                 Konsultasi Gratis via WhatsApp
               </a>
               <p className="mt-6 text-sm text-white/60">
-                ☎ {site.whatsappDisplay} · {site.address}
+                {site.whatsappDisplay} · {site.address}
               </p>
             </Reveal>
             <Reveal delay={150}>

@@ -48,6 +48,11 @@ export function getPricelistUnit(kode: string): PricelistUnit | undefined {
   return units.find((u) => u.kode.toLowerCase() === kode.toLowerCase());
 }
 
+/** Unit yang aman ditampilkan publik: hanya yang benar-benar tersedia. */
+export function getAvailableUnits(): PricelistUnit[] {
+  return getSellableUnits().filter(isTersedia);
+}
+
 /** Status yang aman ditampilkan publik: null berarti belum dipastikan. */
 export function statusLabel(status: UnitStatus): string {
   if (status === "terjual") return "Terjual";

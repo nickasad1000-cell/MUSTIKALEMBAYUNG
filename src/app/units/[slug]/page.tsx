@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  getAllUnits,
+  getAvailableUnits,
   getUnitBySlug,
   formatPrice,
-  STATUS_LABELS,
 } from "@/lib/units";
 import { pricingStats, pricelistNotes, site, waLink } from "@/lib/site";
 import { Header } from "@/components/site/header";
@@ -18,7 +17,7 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  return getAllUnits().map((unit) => ({ slug: unit.slug }));
+  return getAvailableUnits().map((unit) => ({ slug: unit.slug }));
 }
 
 const breadcrumbLd = (unitName: string, slug: string) => ({
@@ -82,7 +81,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function UnitDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const unit = getUnitBySlug(slug);
-  if (!unit) notFound();
+  if (!unit || unit.status !== "available") notFound();
 
   const specs = [
     { label: "Luas Tanah", value: `${unit.landArea} m²` },
@@ -180,17 +179,11 @@ export default async function UnitDetailPage({ params }: PageProps) {
                   target="katalog"
                   className="flex h-12 items-center justify-center rounded-full border border-zinc-300 px-6 font-medium text-zinc-700 transition duration-300 ease-brand hover:bg-zinc-50 active:scale-[0.98]"
                 >
-                  ← Unit Lainnya
+                  ← Katalog Unit
                 </NavigateLink>
               </div>
 
-              {unit.status === "coming-soon" && (
-                <p className="rounded-xl bg-amber-50 px-5 py-4 text-sm text-amber-800">
-                  Unit ini {STATUS_LABELS[unit.status].toLowerCase()} — daftar
-                  via form kontak untuk prioritas booking.
-                </p>
-              )}
-<p className="text-xs leading-relaxed text-zinc-400">
+              <p className="text-xs leading-relaxed text-zinc-400">
                 *Harga dasar tidak termasuk peningkatan mutu kualitas per unit;
                 nilai lengkapnya ada di tabel pricelist. {pricelistNotes.join(" ")}
                 Hubungi marketing untuk info terbaru.

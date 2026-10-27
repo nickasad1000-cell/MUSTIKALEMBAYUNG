@@ -28,6 +28,10 @@ export function getUnitBySlug(slug: string): Unit | undefined {
   return units.find((unit) => unit.slug === slug);
 }
 
+export function getAvailableUnits(): Unit[] {
+  return units.filter((unit) => unit.status === "available");
+}
+
 export function formatPrice(price: number): string {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",

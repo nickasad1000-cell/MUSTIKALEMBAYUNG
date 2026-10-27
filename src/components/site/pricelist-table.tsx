@@ -1,35 +1,44 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import type { PricelistUnit } from "@/lib/pricelist";
-import { isBooking, isTerjual, statusLabel } from "@/lib/pricelist";
-import { pricelistNotes, waLink } from "@/lib/site";
+import { pricelistNotes } from "@/lib/site";
 
 const BLOKS = ["A", "B", "C", "D", "E"] as const;
+const PAGE_SIZE = 12;
 
 function rupiah(n: number | null): string {
-  if (n === null) return "Hubungi marketing";
-  return `Rp${new Intl.NumberFormat("id-ID").format(n).replace(/,/g, ".")}`;
+  if (n === null) return "Hubungi";
+  if (n === 0) return "Tidak ada";
+  return `Rp${new Intl.NumberFormat("id-ID").format(n)}`;
 }
 
 export function PricelistTable({ units }: { units: PricelistUnit[] }) {
-  const router = useRouter();
   const [blok, setBlok] = useState<(typeof BLOKS)[number] | "all">("all");
+  const [limit, setLimit] = useState(PAGE_SIZE);
 
-  const rows = useMemo(
+  const sorted = useMemo(
     () =>
-      blok === "all" ? units : [...units].sort((a, b) => a.kode.localeCompare(b.kode, "id", { numeric: true })).filter((u) => u.blok === blok),
+      [...units]
+        .filter((u) => blok === "all" || u.blok === blok)
+        .sort(
+          (a, b) =>
+            a.blok.localeCompare(b.blok) ||
+            a.kode.localeCompare(b.kode, "id", { numeric: true })
+        ),
     [units, blok]
   );
-  const sorted = rows[0]?.blok && rows.length === units.length ? [...rows].sort((a, b) => a.blok.localeCompare(b.blok) || a.kode.localeCompare(b.kode, "id", { numeric: true })) : rows;
-  const terjual = units.filter(isTerjual).length;
-  const booking = units.filter(isBooking).length;
-  const belumPasti = units.filter((u) => u.status === null).length;
-  const tersedia = units.length - terjual - booking - belumPasti;
+
+  const shown = sorted.slice(0, limit);
+
+  function pilihBlok(value: (typeof BLOKS)[number] | "all") {
+    setBlok(value);
+    setLimit(PAGE_SIZE);
+  }
 
   return (
-    <section id="pricelist" className="scroll-mt-28 bg-zinc-50 py-24 sm:py-32">
+    <section id="pricelist" className="scroll-mt-28 bg-zinc-50 py-16 sm:py-24">
       <div className="mx-auto w-full max-w-6xl px-6">
         <p className="inline-flex items-center gap-2 rounded-full border border-navy-950/10 bg-navy-950/[0.04] px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-navy-800">
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-gold-500" />
@@ -39,153 +48,167 @@ export function PricelistTable({ units }: { units: PricelistUnit[] }) {
           Daftar harga tiap unit
         </h2>
         <p className="mt-3 max-w-xl text-base leading-relaxed text-zinc-600">
-          Harga rumah Rp166 jt + peningkatan mutu kualitas per unit sebagai uang muka.
-          Klik baris untuk melihat detail lengkap setiap unit.
+          Harga rumah Rp166 jt + peningkatan mutu kualitas per unit. Pilih unit
+          untuk melihat rincian lengkapnya.
         </p>
-        <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500">
-          Seluruh angka di tabel ini disalin dari pricelist resmi developer
-          (<code className="rounded bg-navy-950/[0.06] px-1 py-0.5 text-xs">daftar-harga.webp</code>)
-          dan diverifikasi dengan <code className="rounded bg-navy-950/[0.06] px-1 py-0.5 text-xs">npm test</code>.
-          Unit hook/pojok ditandai <span className="font-semibold text-navy-800">Hook</span> dan
-          sudah termasuk tambahan Rp5 jt di kolom peningkatan mutu.
-        </p>
-
-        <div className="mt-8 flex flex-col gap-3 rounded-2xl border border-gold-500/40 bg-gold-400/10 p-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm leading-relaxed text-navy-900">
-            <strong>Blok E1–E9</strong> belum dibuka penjualan — informasi
-            lengkap menyusul.
-          </p>
-          <a
-            href={waLink("info pembukaan penjualan Blok E")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-navy-950 px-5 text-sm font-medium text-white transition duration-300 ease-brand hover:bg-navy-800"
-          >
-            Langsung Hubungi Marketing
-          </a>
-        </div>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          <div className="inline-flex flex-wrap gap-1 rounded-full bg-white p-1 shadow-sm ring-1 ring-navy-950/10" role="group" aria-label="Filter blok">
-            {(["all", ...BLOKS] as const).map((b) => (
-              <button
-                key={b}
-                type="button"
-                onClick={() => setBlok(b)}
-                aria-pressed={blok === b}
-                className={`min-h-11 rounded-full px-4 text-sm font-semibold transition duration-300 ease-brand ${
-                  blok === b ? "bg-navy-950 text-white" : "text-zinc-600 hover:bg-navy-950/5 hover:text-navy-950"
-                }`}
-              >
-                {b === "all" ? "Semua" : `Blok ${b}`}
-              </button>
-            ))}
-          </div>
-          <p className="inline-flex flex-wrap items-center gap-4 text-sm font-semibold text-zinc-700">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 ring-1 ring-navy-950/10">
-              <span aria-hidden className="h-2 w-2 rounded-full bg-emerald-500" />
-              Tersedia {tersedia} dari {units.length} unit
+          <div className="flex w-full items-center gap-2 sm:w-auto">
+            <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              Blok
             </span>
-            {booking > 0 && (
-              <span className="inline-flex items-center gap-2 rounded-full bg-sky-50 px-4 py-2 text-sky-800 ring-1 ring-sky-200">
-                <span aria-hidden className="h-2 w-2 rounded-full bg-sky-500" />
-                {booking} unit booking
-              </span>
-            )}
-            {belumPasti > 0 && (
-              <span className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-4 py-2 text-amber-800 ring-1 ring-amber-200">
-                <span aria-hidden className="h-2 w-2 rounded-full bg-amber-500" />
-                {belumPasti} unit statusnya belum dikonfirmasi
-              </span>
-            )}
+            <div
+              className="grid flex-1 grid-cols-6 gap-0.5 rounded-full bg-white p-1 shadow-sm ring-1 ring-navy-950/10 sm:flex sm:flex-none"
+              role="group"
+              aria-label="Filter blok"
+            >
+              {(["all", ...BLOKS] as const).map((b) => (
+                <button
+                  key={b}
+                  type="button"
+                  onClick={() => pilihBlok(b)}
+                  aria-label={b === "all" ? "Semua blok" : `Blok ${b}`}
+                  aria-pressed={blok === b}
+                  className={`min-h-11 rounded-full px-1 text-xs font-semibold transition duration-300 ease-brand sm:px-4 sm:text-sm ${
+                    blok === b
+                      ? "bg-navy-950 text-white"
+                      : "text-zinc-600 hover:bg-navy-950/5 hover:text-navy-950"
+                  }`}
+                >
+                  {b === "all" ? "Semua" : b}
+                </button>
+              ))}
+            </div>
+          </div>
+          <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-700 ring-1 ring-navy-950/10">
+            <span aria-hidden className="h-2 w-2 rounded-full bg-emerald-500" />
+            {units.length} unit tersedia
           </p>
         </div>
 
-        <div className="mt-6 overflow-x-auto rounded-2xl border border-navy-950/10 bg-white shadow-sm">
-          <table className="w-full min-w-[640px] text-left text-sm">
-            <thead>
-              <tr className="border-b border-navy-950/10 bg-navy-950/[0.03] text-xs uppercase tracking-wider text-zinc-500">
-                <th scope="col" className="px-5 py-3.5 font-semibold">Unit</th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">Type</th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">Luas Tanah</th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">
-                  Peningkatan Mutu
-                </th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">Status</th>
-                <th scope="col" className="px-5 py-3.5 text-right font-semibold">Detail</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-navy-950/5">
-              {sorted.map((u) => {
-                const sold = isTerjual(u);
-                const dibooking = isBooking(u);
-                const belumPasti = u.status === null;
-                return (
-                  <tr
-                    key={u.kode}
-                    onClick={() => router.push(`/unit/${u.kode.toLowerCase()}`)}
-                    title={`Lihat detail unit ${u.kode}`}
-                    className={`cursor-pointer transition-colors duration-200 ${
-                      sold ? "bg-zinc-100/60 hover:bg-zinc-200/50" : "hover:bg-navy-950/[0.03]"
-                    }`}
-                  >
-                    <td className="px-5 py-3.5 font-bold tabular-nums text-navy-950">
-                      {u.kode}
-                      {u.hook && (
-                        <span className="ml-2 rounded-full bg-gold-400/25 px-2 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wide text-gold-700 ring-1 ring-gold-500/40">
-                          Hook
-                        </span>
-                      )}
-                      {sold && <span className="sr-only"> (terjual)</span>}
-                      {dibooking && <span className="sr-only"> (booking)</span>}
-                      {belumPasti && <span className="sr-only"> (status belum dipastikan)</span>}
-                    </td>
-                    <td className="px-5 py-3.5 text-zinc-600">{u.tipe}</td>
-                    <td className="px-5 py-3.5 tabular-nums text-zinc-600">
-                      {u.luasTanah !== null ? `${u.luasTanah} m²` : "—"}
-                    </td>
-                    <td className="px-5 py-3.5 font-semibold tabular-nums text-navy-950">
-                      {rupiah(u.mutuKualitas)}
-                    </td>
-                    <td className="px-5 py-3.5">
-                      {sold ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-bold text-red-600">
-                          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-red-500" />
-                          Terjual
-                        </span>
-                      ) : dibooking ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-2.5 py-1 text-xs font-bold text-sky-700">
-                          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-sky-500" />
-                          Booking
-                        </span>
-                      ) : belumPasti ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-800">
-                          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-                          Belum dipastikan
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">
-                          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                          {statusLabel(u.status)}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-5 py-3.5 text-right" onClick={(e) => e.stopPropagation()}>
-                      <a href={`/unit/${u.kode.toLowerCase()}`} className="inline-flex min-h-11 items-center rounded-full bg-navy-950 px-4 text-xs font-medium text-white transition duration-300 ease-brand hover:bg-navy-800">
-                        Detail →
-                      </a>
-                    </td>
+        {shown.length === 0 ? (
+          <p className="mt-6 rounded-2xl border border-dashed border-zinc-300 p-8 text-center text-sm text-zinc-500">
+            Belum ada unit tersedia di blok ini.
+          </p>
+        ) : (
+          <>
+            <div className="mt-6 grid gap-3 md:hidden">
+              {shown.map((u) => (
+                <Link
+                  key={u.kode}
+                  href={`/unit/${u.kode.toLowerCase()}`}
+                  className="rounded-2xl border border-navy-950/10 bg-white p-4 shadow-sm transition-colors duration-200 active:bg-zinc-50"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-heading text-lg font-semibold text-navy-950">
+                        {u.kode}
+                        {u.hook && (
+                          <span className="ml-2 rounded-full bg-gold-400/25 px-2 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wide text-gold-700 ring-1 ring-gold-500/40">
+                            Hook
+                          </span>
+                        )}
+                      </p>
+                      <p className="mt-0.5 text-sm text-zinc-500">
+                        Blok {u.blok} · Type {u.tipe} ·{" "}
+                        {u.luasTanah !== null ? `${u.luasTanah} m²` : "Luas menyusul"}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+                        Peningkatan mutu
+                      </p>
+                      <p className="mt-0.5 text-sm font-semibold tabular-nums text-navy-950">
+                        {rupiah(u.mutuKualitas)}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-3 text-xs font-medium text-navy-700">
+                    Lihat detail unit →
+                  </p>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-6 hidden overflow-hidden rounded-2xl border border-navy-950/10 bg-white shadow-sm md:block">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="border-b border-navy-950/10 bg-navy-950/[0.03] text-xs uppercase tracking-wider text-zinc-500">
+                    <th scope="col" className="px-5 py-3.5 font-semibold">
+                      Unit
+                    </th>
+                    <th scope="col" className="px-5 py-3.5 font-semibold">
+                      Type
+                    </th>
+                    <th scope="col" className="px-5 py-3.5 font-semibold">
+                      Luas Tanah
+                    </th>
+                    <th scope="col" className="px-5 py-3.5 font-semibold">
+                      Peningkatan Mutu
+                    </th>
+                    <th scope="col" className="px-5 py-3.5 text-right font-semibold">
+                      Detail
+                    </th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                </thead>
+                <tbody className="divide-y divide-navy-950/5">
+                  {shown.map((u) => (
+                    <tr
+                      key={u.kode}
+                      className="transition-colors duration-200 hover:bg-navy-950/[0.03]"
+                    >
+                      <td className="px-5 py-3.5 font-bold tabular-nums text-navy-950">
+                        <Link
+                          href={`/unit/${u.kode.toLowerCase()}`}
+                          className="underline decoration-navy-950/20 decoration-2 underline-offset-4 transition-colors hover:decoration-gold-500"
+                        >
+                          {u.kode}
+                        </Link>
+                        {u.hook && (
+                          <span className="ml-2 rounded-full bg-gold-400/25 px-2 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wide text-gold-700 ring-1 ring-gold-500/40">
+                            Hook
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-5 py-3.5 text-zinc-600">{u.tipe}</td>
+                      <td className="px-5 py-3.5 tabular-nums text-zinc-600">
+                        {u.luasTanah !== null ? `${u.luasTanah} m²` : "—"}
+                      </td>
+                      <td className="px-5 py-3.5 font-semibold tabular-nums text-navy-950">
+                        {rupiah(u.mutuKualitas)}
+                      </td>
+                      <td className="px-5 py-3.5 text-right">
+                        <Link
+                          href={`/unit/${u.kode.toLowerCase()}`}
+                          className="inline-flex min-h-11 items-center rounded-full bg-navy-950 px-4 text-xs font-medium text-white transition duration-300 ease-brand hover:bg-navy-800"
+                        >
+                          Detail →
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {shown.length < sorted.length && (
+              <div className="mt-4 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setLimit((value) => value + PAGE_SIZE)}
+                  className="inline-flex min-h-11 items-center rounded-full border border-navy-950/15 bg-white px-5 text-sm font-semibold text-navy-800 transition duration-300 ease-brand hover:border-navy-950/30"
+                >
+                  Tampilkan unit lainnya ({sorted.length - shown.length})
+                </button>
+              </div>
+            )}
+          </>
+        )}
 
         <p className="mt-4 text-xs leading-relaxed text-zinc-500">
-          {pricelistNotes.join(" ")} Angsuran mulai Rp1.072.180/bulan (20 tahun)*.
-          Simulasi 10 dan 15 tahun tersedia di bagian Harga &amp; Siteplan. Nilai final
-          angsuran ditentukan bank.
+          {pricelistNotes.join(" ")} Angsuran mulai Rp1.072.180/bulan (20
+          tahun)*. Simulasi 10 dan 15 tahun tersedia di bagian Harga &amp;
+          Siteplan. Nilai final angsuran ditentukan bank.
         </p>
       </div>
     </section>

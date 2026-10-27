@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { site, waLink } from "@/lib/site";
 
@@ -28,14 +28,22 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setMenuOpen(false);
     }
+    function onPointerDown(e: PointerEvent) {
+      if (!panelRef.current?.contains(e.target as Node)) setMenuOpen(false);
+    }
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
   }, [menuOpen]);
 
   function go(id: string) {
@@ -53,7 +61,10 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 px-4 pt-4">
-      <div className="relative mx-auto flex h-16 w-full max-w-6xl items-center justify-between rounded-full border border-white/40 bg-white/85 pl-5 pr-2 shadow-lg shadow-navy-950/5 backdrop-blur-xl">
+      <div
+        ref={panelRef}
+        className="relative mx-auto flex h-16 w-full max-w-6xl items-center justify-between rounded-full border border-white/40 bg-white/85 pl-5 pr-2 shadow-lg shadow-navy-950/5 backdrop-blur-xl"
+      >
         <button
           onClick={() => {
             setMenuOpen(false);
@@ -113,7 +124,7 @@ export function Header() {
         {menuOpen && (
           <nav
             id="mobile-nav"
-            className="absolute right-0 top-[4.25rem] flex w-60 flex-col gap-1 rounded-3xl border border-navy-950/10 bg-white/95 p-3 shadow-xl shadow-navy-950/15 backdrop-blur-xl lg:hidden"
+            className="absolute inset-x-0 top-[4.25rem] flex w-full flex-col gap-1 rounded-3xl border border-navy-950/10 bg-white p-3 shadow-xl shadow-navy-950/15 lg:hidden"
             aria-label="Navigasi utama"
           >
             {NAV.map((item) => (
