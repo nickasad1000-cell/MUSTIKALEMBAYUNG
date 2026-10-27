@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import {
   getAvailableUnits,
   getPricelistUnit,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { kode } = await params;
   const u = getPricelistUnit(kode);
   if (!u || isPresaleUnit(kode) || !isTersedia(u)) {
-    return { title: "Unit tidak ditemukan" };
+    return { title: "Unit tidak ditemukan", robots: { index: false } };
   }
 
   const title = `Unit ${u.kode} Blok ${u.blok} — Rumah Subsidi Tipe ${u.tipe} Lumajang`;
@@ -94,7 +94,8 @@ const PHOTOS = [
 export default async function UnitDetailPage({ params }: PageProps) {
   const { kode } = await params;
   const u = getPricelistUnit(kode);
-  if (!u || isPresaleUnit(kode) || !isTersedia(u)) notFound();
+  if (!u) notFound();
+  if (isPresaleUnit(kode) || !isTersedia(u)) redirect("/#pricelist");
 
   const foto = fotoPublikUrl(u.foto);
 
@@ -102,7 +103,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
     <div className="flex flex-col flex-1 bg-white font-sans">
       <Header />
       <main className="flex-1">
-        <div className="mx-auto w-full max-w-6xl px-6 pb-24 pt-32">
+        <div className="mx-auto w-full max-w-7xl px-6 pb-24 pt-32">
           <nav className="text-sm text-zinc-500" aria-label="Breadcrumb">
             <NavigateLink
               target="pricelist"

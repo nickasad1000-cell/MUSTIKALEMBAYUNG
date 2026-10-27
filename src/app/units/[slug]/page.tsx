@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import {
   getAvailableUnits,
   getUnitBySlug,
@@ -48,7 +48,9 @@ const breadcrumbLd = (unitName: string, slug: string) => ({
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const unit = getUnitBySlug(slug);
-  if (!unit) return { title: "Unit tidak ditemukan" };
+  if (!unit || unit.status !== "available") {
+    return { title: "Unit tidak ditemukan", robots: { index: false } };
+  }
 
   const title = `${unit.name} ${unit.buildingArea}/${unit.landArea} m² — Rumah Subsidi Siap Huni Lumajang`;
   const description = `Rumah ${unit.buildingArea}/${unit.landArea} m², ${unit.bedrooms} kamar tidur, ${unit.bathrooms} kamar mandi. Siap huni tanpa renovasi di ${site.address}. ${site.promo}.`;
@@ -81,7 +83,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function UnitDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const unit = getUnitBySlug(slug);
-  if (!unit || unit.status !== "available") notFound();
+  if (!unit) notFound();
+  if (unit.status !== "available") redirect("/#katalog");
 
   const specs = [
     { label: "Luas Tanah", value: `${unit.landArea} m²` },
@@ -112,7 +115,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
       <Header />
 
       <main className="flex-1">
-        <div className="mx-auto w-full max-w-6xl px-6 pb-24 pt-32">
+        <div className="mx-auto w-full max-w-7xl px-6 pb-24 pt-32">
           {/* Breadcrumb */}
           <nav className="text-sm text-zinc-500" aria-label="Breadcrumb">
             <Link href="/" className="transition-colors duration-300 hover:text-navy-800">
